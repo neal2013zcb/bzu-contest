@@ -1,4 +1,4 @@
-package bzu.contest
+package bzu
 
 /**
  * 个人信息

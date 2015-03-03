@@ -1,6 +1,6 @@
 package bzu.security
 
-import bzu.contest.Person;
+import bzu.Person;
 
 class User {
 
