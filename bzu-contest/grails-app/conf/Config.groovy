@@ -113,6 +113,6 @@ grails.gorm.default.constraints = {
 	phone_matches(matches:/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/)
 	// QQ号正则表达式（6-10位数字，不以0开头）
 	qq_matches(matches:/[1-9]\d{5,9}/)
-	// 微信号正则表达式（字母开头）
-	weixin_matches(matches:/[A-Za-z][A-Za-z_\d\-]{5,19}/)
+	// 微信号正则表达式（6-20位字母、数字、下划线、减号）
+	weixin_matches(matches:/[A-Za-z_\d\-]{6,20}/)
 }
