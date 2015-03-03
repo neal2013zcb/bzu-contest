@@ -1,5 +1,7 @@
 package bzu.security
 
+import bzu.contest.Person;
+
 class User {
 
 	transient springSecurityService
@@ -10,6 +12,13 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	
+	/**
+	 * 本账号所属的个人
+	 */
+	Person person
+	
+	static belongsTo = [person:Person]
 
 	static constraints = {
 		username blank: false, unique: true
