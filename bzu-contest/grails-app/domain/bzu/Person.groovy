@@ -35,11 +35,18 @@ class Person {
 	 * 微信，可选。
 	 */
 	String weixin
+	/**
+	 * 所在部门
+	 */
+	Department department
+	
+	static belongsTo = [department:Department]
 
     static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20
 		name nullable:false, blank:false, maxSize:50
 		gender nullable:false, inList:['-','M','F'], maxSize:1
+		department nullable:false 
 		phone nullable:true, maxSize:20, shared:'phone_matches'
 		email nullable:true, email:true, maxSize:50
 		qq nullable:true, maxSize:20, shared:'qq_matches'
