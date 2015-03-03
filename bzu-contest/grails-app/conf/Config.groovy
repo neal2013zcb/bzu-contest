@@ -107,4 +107,12 @@ plugin.platformUi.theme.default = 'Bootstrap'
 plugin.platformCore.site.name="学科竞赛管理系统"
 plugin.platformCore.organization.name='滨州学院'
 
-
+// 共享的约束
+grails.gorm.default.constraints = {
+	// 电话号码正则表达式（支持手机号码，3-4位区号，7-8位直播号码，1－4位分机号）
+	phone_matches(matches:/((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/)
+	// QQ号正则表达式（6-10位数字，不以0开头）
+	qq_matches(matches:/[1-9]\d{5,9}/)
+	// 微信号正则表达式（字母开头）
+	weixin_matches(matches:/[A-Za-z][A-Za-z_\d\-]{5,19}/)
+}
