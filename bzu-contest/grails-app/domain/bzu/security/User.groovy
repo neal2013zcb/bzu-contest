@@ -21,12 +21,15 @@ class User {
 	static belongsTo = [person:Person]
 
 	static constraints = {
-		username blank: false, unique: true
-		password blank: false
+		username nullable: false, blank: false, unique: true, maxSize: 20
+		password blank: false, maxSize: 80
+		person nullable:false
 	}
 
 	static mapping = {
 		password column: '`password`'
+		version false
+		sort 'username'
 	}
 
 	Set<Role> getAuthorities() {
