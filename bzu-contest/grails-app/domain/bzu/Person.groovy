@@ -46,6 +46,10 @@ class Person {
 		weixin nullable:true, maxSize:20, shared:'weixin_matches'
     }
 	
+	static mapping = {
+		sort 'no'
+	}
+	
 	/**
 	 * 姓名及编号
 	 */
