@@ -27,8 +27,14 @@ class Specialty {
 	 * 所在部门
 	 */
 	Department department
+	/**
+	 * 各班级
+	 */
+	Set<ClassGrade> classGrades
 	
 	static belongsTo = [department:Department]
+	
+	static hasMany = [classGrades:ClassGrade]
 
 	static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20

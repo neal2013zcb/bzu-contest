@@ -33,6 +33,10 @@ class ClassGrade {
 		specialty nullable:false
     }
 	
+	static mapping = {
+		sort 'name'
+	}
+	
 	String toString() {
 		name
 	}
