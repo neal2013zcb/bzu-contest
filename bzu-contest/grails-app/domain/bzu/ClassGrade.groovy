@@ -32,4 +32,8 @@ class ClassGrade {
 		classNo nullable:false, range:1..20
 		specialty nullable:false
     }
+	
+	String toString() {
+		name
+	}
 }
