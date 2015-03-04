@@ -26,9 +26,13 @@ class Person {
 	 */
 	String category = '0'
 	/**
-	 * 电话，可选，支持手机和固话及分机格式。
+	 * 办公电话，可选，支持手机和固话及分机格式。
 	 */
-	String phone
+	String officePhone
+	/**
+	 * 移动电话，可选。
+	 */
+	String cellPhone
 	/**
 	 * 电邮，可选。
 	 */
@@ -52,7 +56,8 @@ class Person {
 		no nullable:false, blank:false, unique:true, size:3..20
 		name nullable:false, blank:false, maxSize:50
 		gender nullable:false, inList:['-','M','F'], maxSize:1
-		phone nullable:true, maxSize:20, shared:'phone_matches'
+		officePhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
+		cellPhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
 		email nullable:true, email:true, maxSize:50
 		qq nullable:true, maxSize:20, shared:'qq_matches'
 		weixin nullable:true, maxSize:20, shared:'weixin_matches'

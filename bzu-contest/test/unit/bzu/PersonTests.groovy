@@ -9,7 +9,6 @@ import grails.test.mixin.*
 import org.junit.*
 
 import bzu.Person;
-import bzu.security.User;
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -17,7 +16,7 @@ import bzu.security.User;
 @TestFor(Person)
 class PersonTests {
 
-    void "test right phone numbers"() {
+    void "test right office phone numbers"() {
 	   mockForConstraintsTests Person
 	   def person = new Person()
 	   def right = [
@@ -33,12 +32,12 @@ class PersonTests {
 		   '1234-88888888-4444']
 	   
 	   right.each {
-		   person.phone = it
-		   assert person.validate(['phone'])
+		   person.officePhone = it
+		   assert person.validate(['officePhone'])
 	   }	   
     }
 
-	void "test wrong phone numbers"() {
+	void "test wrong office phone numbers"() {
 	   mockForConstraintsTests Person
 	   def person = new Person()
 	   def wrong = ['1237777777','123999999999',
@@ -46,12 +45,47 @@ class PersonTests {
 		   '44-88888888','55555-88888888']
 	   
 	   wrong.each {
-		   person.phone = it
-		   assert !person.validate(['phone'])
-		   assert 'matches' == person.errors['phone']
+		   person.officePhone = it
+		   assert !person.validate(['officePhone'])
+		   assert 'matches' == person.errors['officePhone']
 	   }
 	}
 	
+	void "test right cell phone numbers"() {
+		mockForConstraintsTests Person
+		def person = new Person()
+		def right = [
+			'',
+			'12388888888',
+			'7777777',
+			'8888888',
+			'123-88888888',
+			'1234-88888888',
+			'8888888-1',
+			'7777777-22',
+			'123-88888888-333',
+			'1234-88888888-4444']
+		
+		right.each {
+			person.cellPhone = it
+			assert person.validate(['cellPhone'])
+		}
+	 }
+ 
+	 void "test wrong cell phone numbers"() {
+		mockForConstraintsTests Person
+		def person = new Person()
+		def wrong = ['1237777777','123999999999',
+			'666666','55555','4444','333','22','1',
+			'44-88888888','55555-88888888']
+		
+		wrong.each {
+			person.cellPhone = it
+			assert !person.validate(['cellPhone'])
+			assert 'matches' == person.errors['cellPhone']
+		}
+	 }
+ 
 	void "test right qq number"() {
 		mockForConstraintsTests Person
 		def person = new Person()
