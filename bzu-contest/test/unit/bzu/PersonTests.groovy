@@ -1,4 +1,6 @@
+
 package bzu
+
 
 
 
@@ -7,6 +9,7 @@ import grails.test.mixin.*
 import org.junit.*
 
 import bzu.Person;
+import bzu.security.User;
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -97,4 +100,5 @@ class PersonTests {
 			assert 'matches' == person.errors['weixin']
 		}
 	}
+	
 }

@@ -1,5 +1,7 @@
 package bzu
 
+import bzu.security.User;
+
 /**
  * 个人信息
  * 
@@ -18,7 +20,7 @@ class Person {
 	/**
 	 * 性别，必填。
 	 */
-	String gender
+	String gender = '-'
 	/**
 	 * 电话，可选，支持手机和固话及分机格式。
 	 */
@@ -36,17 +38,16 @@ class Person {
 	 */
 	String weixin
 	/**
-	 * 所在部门
+	 * 登录账号
 	 */
-	Department department
+	User account
 	
-	static belongsTo = [department:Department]
-
+	static hasOne = [account:User]
+	
     static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20
 		name nullable:false, blank:false, maxSize:50
 		gender nullable:false, inList:['-','M','F'], maxSize:1
-		department nullable:false 
 		phone nullable:true, maxSize:20, shared:'phone_matches'
 		email nullable:true, email:true, maxSize:50
 		qq nullable:true, maxSize:20, shared:'qq_matches'
