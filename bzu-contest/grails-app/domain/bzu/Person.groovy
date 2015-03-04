@@ -22,6 +22,10 @@ class Person {
 	 */
 	String gender = '-'
 	/**
+	 * 类别（0其他，1学生，2员工）。
+	 */
+	String category = '0'
+	/**
 	 * 电话，可选，支持手机和固话及分机格式。
 	 */
 	String phone
@@ -52,6 +56,7 @@ class Person {
 		email nullable:true, email:true, maxSize:50
 		qq nullable:true, maxSize:20, shared:'qq_matches'
 		weixin nullable:true, maxSize:20, shared:'weixin_matches'
+		category nullable:false, blank:false, inList:['0','1','2'], maxSize:1
     }
 	
 	static mapping = {
