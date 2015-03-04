@@ -9,6 +9,25 @@ package bzu
 class Constants {
 	
 	/**
+	 * Department 相关常量
+	 */
+	static interface Department {
+		/**
+		 * 单位类别（0其他，1系院，2部门）
+		 */
+		static interface Category {
+			/** 其他 = '0' */
+			char NA = '0'
+			/** 系院 = '1' */
+			char SCHOOL = '1'
+			/** 部门 = '2' */
+			char DEPARTMENT = '2'
+			/** 所有单位类别 */
+			List VALUES = [NA, SCHOOL, DEPARTMENT]
+		}
+	}
+	
+	/**
 	 * Specialty 相关常量
 	 */
 	static interface Specialty {

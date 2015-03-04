@@ -20,7 +20,7 @@ class Department {
 	 */
 	String shortName
 	/**
-	 * 类别（1院系，2部门，0其他）
+	 * 类别（1系院，2部门，0其他）
 	 */
 	String category
 	
@@ -39,7 +39,7 @@ class Department {
 		no nullable:false, blank:false, unique:true, size:3..20
 		name nullable:false, blank:false, unique:true, maxSize:50
 		shortName nullable:false, blank:false, unique:true, maxSize:50
-		category nullable:false, blank:false, inList:['1','2','0'], maxSize:1
+		category nullable:false, blank:false, inList:Constants.Department.Category.VALUES, maxSize:1
     }
 	
 	static mapping = {
