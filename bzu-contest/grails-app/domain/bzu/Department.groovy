@@ -37,8 +37,8 @@ class Department {
 
     static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20
-		name nullable:false, blank:false, maxSize:50
-		shortName nullable:false, blank:false, maxSize:50
+		name nullable:false, blank:false, unique:true, maxSize:50
+		shortName nullable:false, blank:false, unique:true, maxSize:50
 		category nullable:false, blank:false, inList:['1','2','0'], maxSize:1
     }
 	
