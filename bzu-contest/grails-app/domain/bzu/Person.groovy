@@ -18,7 +18,7 @@ class Person {
 	 */
 	String name
 	/**
-	 * 性别，必填。
+	 * 性别（X未知，M男，F女），必填。
 	 */
 	String gender = Constants.Person.Gender.UNKNOWN
 	/**

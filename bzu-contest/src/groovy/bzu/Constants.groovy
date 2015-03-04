@@ -31,11 +31,11 @@ class Constants {
 		 * 性别（-未指定，M男，F女）
 		 */
 		static interface Gender {
-			/** 未知的 = '3' */
-			char UNKNOWN = '-'
-			/** VIP = '3' */
+			/** 未知的 = 'X' */
+			char UNKNOWN = 'X'
+			/** 男 = 'M' */
 			char MALE = 'M'
-			/** VIP = '3' */
+			/** 女 = 'F' */
 			char FEMALE = 'F'
 			/** 所有性别 */
 			List VALUES = [UNKNOWN, MALE, FEMALE]
