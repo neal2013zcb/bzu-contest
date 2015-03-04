@@ -24,8 +24,12 @@ class Department {
 	 * 各专业
 	 */
 	Set<Specialty> specialties
+	/**
+	 * 员工
+	 */
+	Set<Staff> staffs
 	
-	static hasMany = [specialties:Specialty]
+	static hasMany = [specialties:Specialty, staffs:Staff]
 
     static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20
