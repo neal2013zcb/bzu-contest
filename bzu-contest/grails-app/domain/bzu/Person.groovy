@@ -62,6 +62,7 @@ class Person {
 		email nullable:true, blank:true, maxSize:50, email:true
 		qq nullable:true, blank:true, maxSize:20, shared:'qq_matches'
 		weixin nullable:true, blank:true, maxSize:20, shared:'weixin_matches'
+		account nullable:true
     }
 	
 	static mapping = {
