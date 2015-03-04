@@ -17,13 +17,13 @@ class Constants {
 		 */
 		static interface Category {
 			/** 其他（未知的） = '0' */
-			char UNKNOWN = '0'
+			String UNKNOWN = '0'
 			/** 学生 = '1' */
-			char STUDENT = '1'
+			String STUDENT = '1'
 			/** 员工 = '2' */
-			char STAFF = '2'
+			String STAFF = '2'
 			/** VIP = '3' */
-			char VIP = '3'
+			String VIP = '3'
 			/** 所有人员类别 */
 			List VALUES = [UNKNOWN, STUDENT, STAFF, VIP]
 		}
@@ -32,11 +32,11 @@ class Constants {
 		 */
 		static interface Gender {
 			/** 未知的 = 'X' */
-			char UNKNOWN = 'X'
+			String UNKNOWN = 'X'
 			/** 男 = 'M' */
-			char MALE = 'M'
+			String MALE = 'M'
 			/** 女 = 'F' */
-			char FEMALE = 'F'
+			String FEMALE = 'F'
 			/** 所有性别 */
 			List VALUES = [UNKNOWN, MALE, FEMALE]
 		}
@@ -51,11 +51,11 @@ class Constants {
 		 */
 		static interface Category {
 			/** 其他（未知的） = '0' */
-			char UNKNOWN = '0'
+			String UNKNOWN = '0'
 			/** 系院 = '1' */
-			char SCHOOL = '1'
+			String SCHOOL = '1'
 			/** 部门 = '2' */
-			char DEPARTMENT = '2'
+			String DEPARTMENT = '2'
 			/** 所有单位类别 */
 			List VALUES = [UNKNOWN, SCHOOL, DEPARTMENT]
 		}
@@ -70,13 +70,13 @@ class Constants {
 		 */
 		static interface Level {
 			/** 专科 = ‘1’ */
-			char JUNIOR = '1'
+			String JUNIOR = '1'
 			/** 本科 = '2' */
-			char BACHELOR = '2'
+			String BACHELOR = '2'
 			/** 硕士 = ‘3’ */
-			char MASTER = '3'
+			String MASTER = '3'
 			/** 博士 = '4' */
-			char DOCTOR = '4'
+			String DOCTOR = '4'
 			/** 所有专业层次 */
 			List VALUES = [JUNIOR, BACHELOR, MASTER, DOCTOR]
 		}
