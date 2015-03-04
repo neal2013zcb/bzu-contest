@@ -36,10 +36,10 @@ class Department {
 	static hasMany = [specialties:Specialty, staffs:Staff]
 
     static constraints = {
-		no nullable:false, blank:false, unique:true, size:3..20
+		no nullable:false, blank:false, unique:true, maxSize:20, matches:/[A-Za-z0-9_\-]{3,20}/
 		name nullable:false, blank:false, unique:true, maxSize:50
 		shortName nullable:false, blank:false, unique:true, maxSize:50
-		category nullable:false, blank:false, inList:Constants.Department.Category.VALUES, maxSize:1
+		category nullable:false, blank:false, maxSize:1, inList:Constants.Department.Category.VALUES
     }
 	
 	static mapping = {
