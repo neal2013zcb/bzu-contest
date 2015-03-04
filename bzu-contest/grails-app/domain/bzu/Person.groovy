@@ -53,13 +53,13 @@ class Person {
 	static hasOne = [account:User]
 	
     static constraints = {
-		no nullable:false, blank:false, unique:true, size:3..20
+		no nullable:false, blank:false, unique:true, maxSize:20, matches:/[A-Za-z0-9_\-]{3,20}/
 		name nullable:false, blank:false, maxSize:50
-		gender nullable:false, blank:false, inList:Constants.Person.Gender.VALUES, maxSize:1
-		category nullable:false, blank:false, inList:Constants.Person.Category.VALUES, maxSize:1
+		gender nullable:false, blank:false, maxSize:1, inList:Constants.Person.Gender.VALUES
+		category nullable:false, blank:false, maxSize:1, inList:Constants.Person.Category.VALUES
 		officePhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
 		cellPhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
-		email nullable:true, blank:true, email:true, maxSize:50
+		email nullable:true, blank:true, maxSize:50, email:true
 		qq nullable:true, blank:true, maxSize:20, shared:'qq_matches'
 		weixin nullable:true, blank:true, maxSize:20, shared:'weixin_matches'
     }
