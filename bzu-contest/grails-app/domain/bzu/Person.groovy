@@ -20,11 +20,11 @@ class Person {
 	/**
 	 * 性别，必填。
 	 */
-	String gender = '-'
+	String gender = Constants.Person.Gender.UNKNOWN
 	/**
-	 * 类别（0其他，1学生，2员工）。
+	 * 类别（0其他，1学生，2员工，3VIP）。
 	 */
-	String category = '0'
+	String category = Constants.Person.Category.UNKNOWN
 	/**
 	 * 办公电话，可选，支持手机和固话及分机格式。
 	 */
@@ -55,13 +55,13 @@ class Person {
     static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20
 		name nullable:false, blank:false, maxSize:50
-		gender nullable:false, inList:['-','M','F'], maxSize:1
+		gender nullable:false, inList:Constants.Person.Gender.VALUES, maxSize:1
 		officePhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
 		cellPhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
 		email nullable:true, email:true, maxSize:50
 		qq nullable:true, maxSize:20, shared:'qq_matches'
 		weixin nullable:true, maxSize:20, shared:'weixin_matches'
-		category nullable:false, blank:false, inList:['0','1','2'], maxSize:1
+		category nullable:false, blank:false, inList:Constants.Person.Category.VALUES, maxSize:1
     }
 	
 	static mapping = {
