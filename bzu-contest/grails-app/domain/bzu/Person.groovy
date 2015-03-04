@@ -55,13 +55,13 @@ class Person {
     static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20
 		name nullable:false, blank:false, maxSize:50
-		gender nullable:false, inList:Constants.Person.Gender.VALUES, maxSize:1
+		gender nullable:false, blank:false, inList:Constants.Person.Gender.VALUES, maxSize:1
+		category nullable:false, blank:false, inList:Constants.Person.Category.VALUES, maxSize:1
 		officePhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
 		cellPhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
-		email nullable:true, email:true, maxSize:50
-		qq nullable:true, maxSize:20, shared:'qq_matches'
-		weixin nullable:true, maxSize:20, shared:'weixin_matches'
-		category nullable:false, blank:false, inList:Constants.Person.Category.VALUES, maxSize:1
+		email nullable:true, blank:true, email:true, maxSize:50
+		qq nullable:true, blank:true, maxSize:20, shared:'qq_matches'
+		weixin nullable:true, blank:true, maxSize:20, shared:'weixin_matches'
     }
 	
 	static mapping = {
