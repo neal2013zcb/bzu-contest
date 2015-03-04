@@ -19,6 +19,13 @@ class Department {
 	 * 部门简称
 	 */
 	String shortName
+	
+	/**
+	 * 各专业
+	 */
+	Set<Specialty> specialties
+	
+	static hasMany = [specialties:Specialty]
 
     static constraints = {
 		no nullable:false, blank:false, unique:true, size:3..20
