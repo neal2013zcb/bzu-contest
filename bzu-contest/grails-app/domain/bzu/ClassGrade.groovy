@@ -34,9 +34,9 @@ class ClassGrade {
 
     static constraints = {
 		name nullable:false, blank:false, unique:true, maxSize:50
-		grade nullable:false, range:2000..2020
-		classNo nullable:false, range:1..20
 		specialty nullable:false
+		grade nullable:false, range:2010..2025
+		classNo nullable:false, range:1..20
     }
 	
 	static mapping = {
