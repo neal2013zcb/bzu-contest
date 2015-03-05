@@ -37,6 +37,8 @@
 						<g:sortableColumn property="cellPhone" title="${message(code: 'person.cellPhone.label', default: 'Cell Phone')}" />
 					
 						<g:sortableColumn property="email" title="${message(code: 'person.email.label', default: 'Email')}" />
+
+						<g:sortableColumn property="qq" title="${message(code: 'person.qq.label', default: 'QQ')}" />
 						
 						<g:sortableColumn property="weixin" title="${message(code: 'person.weixin.label', default: 'WeChat')}" />
 					
@@ -59,6 +61,8 @@
 						<td>${fieldValue(bean: personInstance, field: "cellPhone")}</td>
 					
 						<td>${fieldValue(bean: personInstance, field: "email")}</td>
+						
+						<td>${fieldValue(bean: personInstance, field: "qq")}</td>
 						
 						<td>${fieldValue(bean: personInstance, field: "weixin")}</td>
 					
