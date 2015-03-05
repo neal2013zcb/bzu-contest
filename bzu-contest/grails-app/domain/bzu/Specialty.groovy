@@ -25,7 +25,7 @@ class Specialty {
 	 */
 	String level
 	/**
-	 * 所在部门
+	 * 所属系院
 	 */
 	Department department
 	/**
