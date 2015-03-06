@@ -15,6 +15,20 @@ class Staff {
 	 * 所在单位
 	 */
 	Department department
+	/**
+	 * 员工编号
+	 * @return
+	 */
+	String getNo() {
+		person.no
+	}
+	/**
+	 * 员工姓名
+	 * @return
+	 */
+	String getName() {
+		person.name
+	}
 	
 	static belongsTo = [department:Department]
 
