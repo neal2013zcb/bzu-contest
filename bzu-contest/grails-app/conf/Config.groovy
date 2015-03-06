@@ -116,3 +116,14 @@ grails.gorm.default.constraints = {
 	// 微信号正则表达式（6-20位字母、数字、下划线、减号）
 	weixin_matches(matches:/[A-Za-z_\d\-]{6,20}/)
 }
+
+// 各类权限
+app.roles = [
+'USER',			// 用户
+'ADMIN',		// 系统管理
+'DEPARTMENT',	// 系院管理
+'PROJECT',		// 项目管理
+'INSPECTOR',	// 督导
+'TEACHER',		// 教师
+'STUDENT',		// 学生
+]
