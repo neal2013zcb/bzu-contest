@@ -22,7 +22,7 @@ class Department {
 	/**
 	 * 类别（1系院，2部门，0其他）
 	 */
-	String category
+	String category = Constants.Department.Category.DEPARTMENT
 	
 	/**
 	 * 各专业

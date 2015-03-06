@@ -23,7 +23,7 @@ class Specialty {
 	/**
 	 * 专业层次（1专科，2本科，3硕士，4博士）
 	 */
-	String level
+	String level = Constants.Specialty.Level.BACHELOR
 	/**
 	 * 所属系院
 	 */
