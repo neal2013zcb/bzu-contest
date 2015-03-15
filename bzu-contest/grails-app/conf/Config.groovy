@@ -137,3 +137,8 @@ webPortal.moke.success = "OK"
 webPortal.moke.fail = "FAIL"
 webPortal.moke.users = [ '1111':'1111', '2222':'2222', '3333':'3333' ]
 
+// Authentication Providers
+grails.plugins.springsecurity.providerNames = [
+	'daoAndWebPortalAuthenticationProvider',  // dao and web auth
+	'anonymousAuthenticationProvider',
+	'rememberMeAuthenticationProvider']
