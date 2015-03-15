@@ -127,3 +127,13 @@ app.roles = [
 'TEACHER',		// 教师
 'STUDENT',		// 学生
 ]
+
+// 校内门户登录网址及返回结果
+webPortal.login.url = "http://portal.bzu.edu.cn/loginAction.do?userName=%s&userPass=%s"
+webPortal.login.success = "<script>window.top.location.href=\"/index_jg.jsp\"</script>"
+// 开发和测试环境下校内门户
+webPortal.moke.url = "http://localhost:8080/${appName}/webPortalMock/login?userName=%s&userPass=%s"
+webPortal.moke.success = "OK"
+webPortal.moke.fail = "FAIL"
+webPortal.moke.users = [ '1111':'1111', '2222':'2222', '3333':'3333' ]
+
