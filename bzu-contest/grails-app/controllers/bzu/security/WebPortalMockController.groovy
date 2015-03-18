@@ -12,14 +12,14 @@ class WebPortalMockController {
 	def login = {
 		// 仅用于开发环境
 		if(Environment.current == Environment.DEVELOPMENT) {
-			def config = grailsApplication.config.webPortal.moke
+			def config = grailsApplication.config.webPortal.mock
 			def users = config.users
 			def userName = params.userName
 			def userPass = params.userPass
 			if(userName && userPass && users[userName] == userPass)
-				render grailsApplication.config.webPortal.moke.success
+				render config.success
 			else
-				render grailsApplication.config.webPortal.moke.fail
+				render config.fail
 			return
 		}
 		
