@@ -132,10 +132,10 @@ app.roles = [
 webPortal.login.url = "http://portal.bzu.edu.cn/loginAction.do?userName=%s&userPass=%s"
 webPortal.login.success = "<script>window.top.location.href=\"/index_jg.jsp\"</script>"
 // 开发和测试环境下校内门户
-webPortal.moke.url = "http://localhost:8080/${appName}/webPortalMock/login?userName=%s&userPass=%s"
-webPortal.moke.success = "OK"
-webPortal.moke.fail = "FAIL"
-webPortal.moke.users = [ '1111':'1111', '2222':'2222', '3333':'3333' ]
+webPortal.mock.url = "http://localhost:8080/${appName}/webPortalMock/login?userName=%s&userPass=%s"
+webPortal.mock.success = "OK"
+webPortal.mock.fail = "FAIL"
+webPortal.mock.users = [ '1111':'1111', '2222':'2222', '3333':'3333' ]
 
 // Authentication Providers
 grails.plugins.springsecurity.providerNames = [
