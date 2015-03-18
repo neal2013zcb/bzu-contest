@@ -5,6 +5,7 @@
     </theme:head>
     <theme:body>
         <theme:layoutTemplate name="header"/>
+        <theme:layoutZone name="masthead">
         <header class="masthead">
             <div class="inner">
                 <div class="container">
@@ -13,6 +14,7 @@
                 </div>
             </div>  
         </header>
+        </theme:layoutZone>
         <div class="container">
             <div class="content">
                 <div class="row">
