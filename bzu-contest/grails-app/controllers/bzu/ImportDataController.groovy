@@ -444,31 +444,9 @@ class ImportDataController {
 				DomainClassArtefactHandler.TYPE, domain).clazz
 		// 根据 ids 查询出所有对象并删除之
 		def objs = domainClass.getAll(ids).findAll { it!=null } // 只取非空对象
-		objs.each {
-			delete(it)
-		}
+		domainClass.deleteAll(objs)
 		// 重新返回导入数据界面
 		displayFlashMessage text:"${objs.size()} 个${message(code:domain+'.label')}已删除", type:'info'
 		redirect action: domain
-	}
-	
-	private void delete(Department obj) {
-		obj.delete()
-	}
-	private void delete(Specialty obj) {
-		obj.delete()
-	}
-	private void delete(ClassGrade obj) {
-		obj.delete()
-	}
-	private void delete(Student obj) {
-		Person person = obj.person
-		obj.delete()
-		person.delete()
-	}
-	private void delete(Staff obj) {
-		Person person = obj.person
-		obj.delete()
-		person.delete()
 	}
 }
