@@ -52,7 +52,7 @@
 				<thead>
 				<ui:tr>
 					<ui:th text="staff.no.label"/>
-					<ui:th text="person.name.label"/>
+					<ui:th text="staff.name.label"/>
 					<ui:th text="staff.department.label"/>
 				</ui:tr>
 				</thead>
@@ -60,7 +60,7 @@
 					<g:each in="${r}" var="staffInstance">
 					<ui:tr class="success">
 						<td>${fieldValue(bean: staffInstance, field: "no")}</td>
-						<td>${fieldValue(bean: staffInstance, field: "person")}</td>
+						<td>${fieldValue(bean: staffInstance, field: "name")}</td>
 						<td>${fieldValue(bean: staffInstance, field: "department")}</td>
 					</ui:tr>
 					</g:each>
@@ -115,7 +115,7 @@
 				<table style="color:brown">
 					<tr>
 						<td class="span1"><g:message code="staff.no.label"/></td>
-						<td class="span1"><g:message code="person.name.label"/></td>
+						<td class="span1"><g:message code="staff.name.label"/></td>
 						<td class="span1"><g:message code="staff.department.label"/></td>
 					</tr>
 				</table>

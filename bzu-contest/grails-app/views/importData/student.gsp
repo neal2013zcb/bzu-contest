@@ -53,7 +53,7 @@
 				<thead>
 				<ui:tr>
 					<ui:th text="student.no.label"/>
-					<ui:th text="person.name.label"/>
+					<ui:th text="student.name.label"/>
 					<ui:th text="student.classGrade.label"/>
 				</ui:tr>
 				</thead>
@@ -61,7 +61,7 @@
 					<g:each in="${r}" var="studentInstance">
 					<ui:tr class="success">
 						<td>${fieldValue(bean: studentInstance, field: "no")}</td>
-						<td>${fieldValue(bean: studentInstance, field: "person")}</td>
+						<td>${fieldValue(bean: studentInstance, field: "name")}</td>
 						<td>${fieldValue(bean: studentInstance, field: "classGrade")}</td>
 					</ui:tr>
 					</g:each>
@@ -116,7 +116,7 @@
 				<table style="color:brown">
 					<tr>
 						<td class="span1"><g:message code="student.no.label"/></td>
-						<td class="span1"><g:message code="person.name.label"/></td>
+						<td class="span1"><g:message code="student.name.label"/></td>
 						<td class="span1"><g:message code="student.classGrade.label"/></td>
 					</tr>
 				</table>
