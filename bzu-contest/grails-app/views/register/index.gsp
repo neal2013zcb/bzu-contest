@@ -16,7 +16,7 @@
 	<div class="row-fluid">
 		<div class="span6">
 			<div class="hero-unit">
-				<h2 style="color:orange"><i class="fa fa-user"></i> 学生注册</h2>
+				<h2 style="color:orange"><i class="fa fa-slideshare"></i> 学生注册</h2>
 				<p>在校学生注册后可以</p>
 				<ul style="color:orange">
 					<li>查看学科竞赛信息</li>
