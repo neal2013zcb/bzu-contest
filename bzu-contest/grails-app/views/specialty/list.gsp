@@ -32,7 +32,7 @@
 					
 						<g:sortableColumn property="level" title="${message(code: 'specialty.level.label', default: 'Level')}" />
 					
-						<th><g:message code="specialty.department.label" default="Department" /></th>
+						<g:sortableColumn property="department" title="${message(code: 'specialty.department.label', default: 'Department')}" />
 					
 					</tr>
 				</thead>
@@ -40,15 +40,15 @@
 				<g:each in="${specialtyInstanceList}" status="i" var="specialtyInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${specialtyInstance.id}">${fieldValue(bean: specialtyInstance, field: "no")}</g:link></td>
+						<td>${fieldValue(bean: specialtyInstance, field: "no")}</td>
 					
-						<td>${fieldValue(bean: specialtyInstance, field: "name")}</td>
+						<td><g:link action="show" id="${specialtyInstance.id}">${fieldValue(bean: specialtyInstance, field: "name")}</g:link></td>
 					
 						<td>${fieldValue(bean: specialtyInstance, field: "shortName")}</td>
 					
 						<td><g:message code="specialty.level.${specialtyInstance.level}"/></td>
 					
-						<td>${fieldValue(bean: specialtyInstance, field: "department")}</td>
+						<td><g:link controller="department" action="show" id="${specialtyInstance.department.id}">${fieldValue(bean: specialtyInstance, field: "department")}</g:link></td>
 					
 					</tr>
 				</g:each>
