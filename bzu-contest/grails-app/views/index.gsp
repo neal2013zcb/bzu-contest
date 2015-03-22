@@ -8,6 +8,7 @@
 <theme:zone name="masthead">
 </theme:zone>
 <theme:zone name="body">
+	<ui:displayMessage/>
 </theme:zone>
 <theme:zone name="panel1">
 		<div id="status" role="complementary">
