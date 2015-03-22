@@ -116,6 +116,7 @@ class LoginController {
 		}
 		else {
 			flash.message = msg
+			displayFlashMessage(text:msg, type:'error')
 			redirect action: 'auth', params: params
 		}
 	}
@@ -133,5 +134,4 @@ class LoginController {
 	def ajaxDenied = {
 		render([error: 'access denied'] as JSON)
 	}
-	
 }
