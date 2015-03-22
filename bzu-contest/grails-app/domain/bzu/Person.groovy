@@ -22,29 +22,17 @@ class Person {
 	 */
 	String gender = Constants.Person.Gender.UNKNOWN
 	/**
-	 * 类别（0其他，1学生，2员工，3VIP）。
-	 */
-	String category = Constants.Person.Category.UNKNOWN
-	/**
 	 * 办公电话，可选，支持手机和固话及分机格式。
 	 */
-	String officePhone
+	String workPhone
 	/**
-	 * 移动电话，可选。
+	 * 家庭电话，可选，支持手机和固话及分机格式。。
 	 */
-	String cellPhone
+	String homePhone
 	/**
 	 * 电邮，可选。
 	 */
 	String email
-	/**
-	 * QQ，可选。
-	 */
-	String qq
-	/**
-	 * 微信，可选。
-	 */
-	String weixin
 	/**
 	 * 登录账号
 	 */
@@ -56,17 +44,15 @@ class Person {
 		no nullable:false, blank:false, unique:true, maxSize:20, matches:/[A-Za-z0-9_\-]{3,20}/
 		name nullable:false, blank:false, maxSize:50
 		gender nullable:false, blank:false, maxSize:1, inList:Constants.Person.Gender.VALUES
-		category nullable:false, blank:false, maxSize:1, inList:Constants.Person.Category.VALUES
-		officePhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
-		cellPhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
+		workPhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
+		homePhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
 		email nullable:true, blank:true, maxSize:50, email:true
-		qq nullable:true, blank:true, maxSize:20, shared:'qq_matches'
-		weixin nullable:true, blank:true, maxSize:20, shared:'weixin_matches'
 		account nullable:true
     }
 	
 	static mapping = {
 		sort 'no'
+		tablePerHierarchy false // 每个子类一个表
 	}
 	
 	/**
