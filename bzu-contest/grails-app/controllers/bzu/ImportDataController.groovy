@@ -3,6 +3,7 @@ package bzu
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler;
 import org.mindrot.jbcrypt.BCrypt;
 
+import bzu.security.RegisterService;
 import grails.plugins.springsecurity.Secured;
 
 /**
@@ -19,6 +20,8 @@ class ImportDataController {
 	static allowedMethods = [importDepartment: "POST", importSpecialty: "POST",
 			importClassGrade: "POST", importStudent: "POST", importStaff: "POST",
 			undo: "POST"]
+	
+	RegisterService registerService
 	
 	/**
 	 * 导入数据功能的首页，显示功能简介以及导入各类数据的链接。
@@ -64,7 +67,7 @@ class ImportDataController {
 		
 		// 从提交的数据中提取出单位信息，保存并统提交结果
 		// n-提交数，e-错误数，r-提交记录列表, bad-错误记录, err-错误信息
-		def result = [n:0, e:0, r:[], bad:[], err:[]]
+		def result = [n:0, e:0, r:[], bad:[], err:[], params:params]
 		// 逐行遍历提交数据
 		text.eachLine { record ->
 			// 仅考虑非空记录，忽略空记录
@@ -74,7 +77,7 @@ class ImportDataController {
 				// 分解数据
 				def a = record.split()
 				// 挑选出格式正确的记录（未指定默认类别时至少4个字段，否则至少3个字段）
-				if(!defaultCategory && a.length>=4 || a.length>=3) {
+				if(a.length>=4 || defaultCategory && a.length>=3) {
 					// 未指定单位类别时采用默认类别
 					def category = a.length>3 ? a[3] : defaultCategory
 					// 必要时将类别名称转换成类别值
@@ -147,7 +150,7 @@ class ImportDataController {
 		
 		// 从提交的数据中提分解出专业信息，保存并统提交结果
 		// n-提交数，e-错误数，r-提交记录列表, bad-错误记录, err-错误信息
-		def result = [n:0, e:0, r:[], bad:[], err:[]]
+		def result = [n:0, e:0, r:[], bad:[], err:[], params:params]
 		text.eachLine { record->
 			// 仅考虑非空记录，忽略空记录
 			if(record) {
@@ -157,9 +160,9 @@ class ImportDataController {
 				def a = record.split()
 				// 挑选出格式正确的记录
 				// 专业代码，专业名称，专业简称，专业层次（专科，本科，硕士，博士），所属系院编号/名称/简称
-				def case1 = !defaultDepartment && !defaultLevel && a.length >=5
-				def case2 = !defaultLevel && a.length >=4
-				def case3 = a.length >=3
+				def case1 = a.length >=5
+				def case2 = defaultDepartment && a.length >=4
+				def case3 = defaultDepartment && defaultLevel && a.length >=3
 				if(case1 || case2 || case3) { // 注意三种情况的顺序不能调换
 					// 未指定所属系院时采用默认系院
 					def department = a.length>4 ? toDepartment(a[4]) : defaultDepartment
@@ -222,7 +225,7 @@ class ImportDataController {
 
 		// 从提交的数据中提分解出班级信息，保存并统提交结果
 		// n-提交数，e-错误数，r-提交记录列表, bad-错误记录, err-错误信息
-		def result = [n:0, e:0, r:[], bad:[], err:[]]
+		def result = [n:0, e:0, r:[], bad:[], err:[], params:params]
 		text.eachLine { record->
 			// 仅考虑非空记录，忽略空记录
 			if(record) {
@@ -232,23 +235,31 @@ class ImportDataController {
 				def a = record.split()
 				// 挑选出格式正确的记录
 				// 班级名称，年级，班号，所学专业名称/简称/代码
-				def case1 = !defaultSpecialty && a.length >=4
-				def case2 = a.length >=3
+				def case1 = a.length >=4
+				def case2 = defaultSpecialty && a.length >=3
 				if(case1 || case2) { // 注意两种情况的顺序不能调换
 					// 未指定所学专业时采用默认专业
-					def specialty = a.length>3 ? toSpecialty(a[3]) : defaultSpecialty
-					// 根据记录中的数据创建班级对象
-					def obj = new ClassGrade(name:a[0], grade:Integer.valueOf(a[1]),
-							classNo:Integer.valueOf(a[2]), specialty:specialty)
-					// 尝试保存该对象
-					if(obj.save()) {
-						// 保存成功，添加到提交记录列表中
-						result.r << obj
-					} else {
-						// 保存失败，记录错误数
-						result.e++ // 保存失败
+					try {
+						def specialty = a.length>3 ? toSpecialty(a[3]) : defaultSpecialty
+						// 根据记录中的数据创建班级对象
+						def grade = Integer.valueOf(a[1])
+						def classNo = Integer.valueOf(a[2])
+						def obj = new ClassGrade(name:a[0], grade:grade,
+								classNo:classNo, specialty:specialty)
+						// 尝试保存该对象
+						if(obj.save()) {
+							// 保存成功，添加到提交记录列表中
+							result.r << obj
+						} else {
+							// 保存失败，记录错误数
+							result.e++ // 保存失败
+							result.bad << record
+							result.err << message(error:obj.errors.fieldError)
+						}
+					} catch (NumberFormatException e) {
+						result.e++ // 数字格式错误
 						result.bad << record
-						result.err << message(error:obj.errors.fieldError)
+						result.err << "数字格式错误"
 					}
 				} else {
 					// 数据不完整，记录错误数
@@ -268,17 +279,145 @@ class ImportDataController {
 	}
 	
 	/**
+	 * 显示导入学生表单
+	 */
+	def student() { }
+	/**
 	 * 导入学生（根据学号，姓名，所在班级名称）
 	 */
 	def importStudent() {
+		// 取数据列表
+		def text = params.text
+		if(!text) {
+			// 未提交数据，重新显示提交页面
+			displayFlashMessage text:"未提交任何数据", type:'error'
+			render view:'student'
+			return
+		}
 		
+		// 取默认班级
+		def defaultClassGradeId = params.long('classGrade.id', 0L)
+		def toClassGradeId = { classGrade->
+			if(classGrade instanceof Long) return classGrade
+			return ClassGrade.where { name==classGrade }.get()?.id
+		}
+
+		// 从提交的数据中提分解出学生信息，保存并统提交结果
+		// n-提交数，e-错误数，r-提交记录列表, bad-错误记录, err-错误信息
+		def result = [n:0, e:0, r:[], bad:[], err:[], params:params]
+		text.eachLine { record->
+			// 仅考虑非空记录，忽略空记录
+			if(record) {
+				// 统计提交记录数
+				result.n++
+				// 分解数据
+				def a = record.split()
+				// 挑选出格式正确的记录
+				// 学号，姓名，所在班级名称
+				def case1 = a.length >=3
+				def case2 = defaultClassGradeId && a.length >=2
+				if(case1 || case2) {
+					// 未指定所在班级时采用默认班级
+					def classGradeId = a.length>2 ? toClassGradeId(a[2]) : defaultClassGradeId
+					// 注册学生
+					try {
+						def obj = registerService.registerStudent([no:a[0], name:a[1],
+								password:BCrypt.gensalt(3),   // 设置随机密码
+								'classGrade.id':classGradeId])
+						// 注册成功，添加到提交记录列表中
+						result.r << obj
+					} catch (ServiceException e) {
+						// 注册失败，记录错误数
+						result.e++ // 保存失败
+						result.bad << record
+						result.err << e.message
+					}
+				} else {
+					// 数据不完整，记录错误数
+					result.e++ // 数据不完整
+					result.bad << record
+					result.err << "数据不完整"
+				}
+			}
+		}
+
+		// 提交完毕，重新返回提交页面，显示提交结果
+		def message = "提交数据 ${result.n} 个记录，正确导入 ${result.n-result.e} 个，错误 ${result.e} 个。"
+		def type = result.n>0 && result.e==0 ? 'info' : result.e==result.n ? 'error' : 'warning'
+		displayFlashMessage(text:message, type:type)
+		flash.result = result
+		redirect action:'student'
 	}
 	
 	/**
-	 * 导入员工（根据工号，姓名，所在单位名称/简称/代码）
+	 * 显示导入教工表单
+	 */
+	def staff() { }
+	/**
+	 * 导入教工（根据工号，姓名，所在单位名称/简称/代码）
 	 */
 	def importStaff() {
+		// 取数据列表
+		def text = params.text
+		if(!text) {
+			// 未提交数据，重新显示提交页面
+			displayFlashMessage text:"未提交任何数据", type:'error'
+			render view:'staff'
+			return
+		}
 		
+		// 取默认所属系院
+		def defaultDepartmentId = params.long('department.id', 0L)
+		def toDepartmentId = { department->
+			if(department instanceof Long) return department
+			return Department.where { no==department || name==department || shortName==department }.get()?.id
+		}
+
+		// 从提交的数据中提分解出教工信息，保存并统提交结果
+		// n-提交数，e-错误数，r-提交记录列表, bad-错误记录, err-错误信息
+		def result = [n:0, e:0, r:[], bad:[], err:[], params:params]
+		text.eachLine { record->
+			// 仅考虑非空记录，忽略空记录
+			if(record) {
+				// 统计提交记录数
+				result.n++
+				// 分解数据
+				def a = record.split()
+				// 挑选出格式正确的记录
+				// 工号，姓名，所在单位名称/简称/代码
+				def case1 = a.length >=3
+				def case2 = defaultDepartmentId && a.length >=2
+				if(case1 || case2) {
+					// 未指定所在单位时采用默认单位
+					def departmentId = a.length>2 ? toDepartmentId(a[2]) : defaultDepartmentId
+					// 注册教工
+					try {
+						def obj = registerService.registerStaff([no:a[0], name:a[1],
+								password:BCrypt.gensalt(3),   // 设置随机密码
+								'department.id':departmentId])
+						// 注册成功，添加到提交记录列表中
+						result.r << obj
+					} catch (ServiceException e) {
+						// 注册失败，记录错误数
+						result.e++ // 保存失败
+						result.bad << record
+						result.err << e.message
+					}
+				} else {
+					// 数据不完整，记录错误数
+					result.e++ // 数据不完整
+					result.bad << record
+					result.err << "数据不完整"
+				}
+			}
+		}
+
+		// 提交完毕，重新返回提交页面，显示提交结果
+		def message = "提交数据 ${result.n} 个记录，正确导入 ${result.n-result.e} 个，错误 ${result.e} 个。"
+		def type = result.n>0 && result.e==0 ? 'info' : result.e==result.n ? 'error' : 'warning'
+		displayFlashMessage(text:message, type:type)
+		flash.result = result
+		redirect action:'staff'
 	}
 	
 	/**
@@ -305,9 +444,31 @@ class ImportDataController {
 				DomainClassArtefactHandler.TYPE, domain).clazz
 		// 根据 ids 查询出所有对象并删除之
 		def objs = domainClass.getAll(ids).findAll { it!=null } // 只取非空对象
-		domainClass.deleteAll(objs)
+		objs.each {
+			delete(it)
+		}
 		// 重新返回导入数据界面
 		displayFlashMessage text:"${objs.size()} 个${message(code:domain+'.label')}已删除", type:'info'
 		redirect action: domain
+	}
+	
+	private void delete(Department obj) {
+		obj.delete()
+	}
+	private void delete(Specialty obj) {
+		obj.delete()
+	}
+	private void delete(ClassGrade obj) {
+		obj.delete()
+	}
+	private void delete(Student obj) {
+		Person person = obj.person
+		obj.delete()
+		person.delete()
+	}
+	private void delete(Staff obj) {
+		Person person = obj.person
+		obj.delete()
+		person.delete()
 	}
 }

@@ -25,7 +25,7 @@ class RegisterService {
 	 */
     Staff registerStaff(Map params) {
 		// 检查信息完整性
-    	Long id = params.long('department.id')
+    	Long id = Long.valueOf(params['department.id'])
 		Department department = Department.get(id)
 		if(!params.no || !params.name || !department)
 			throw new ServiceException('注册信息不完整，至少包括教工号、姓名、所在机构信息')
@@ -57,6 +57,12 @@ class RegisterService {
 			person.account = new User(username:params.no, password:params.password, enabled:true)
 			if(!person.save())
 				throw new ServiceException('创建登录账号失败')
+			// 分配用户和教师权限
+			['ROLE_USER', 'ROLE_TEACHER'].each { auth->
+				def role = Role.findByAuthority(auth)
+				if(role)
+					UserRole.create(person.account, role)
+			}
 		} else {
 			throw new ServiceException('相关登录账号已存在，不能重复注册')
 		}
@@ -73,7 +79,7 @@ class RegisterService {
 	 */
 	Student registerStudent(Map params) {
 		// 检查信息完整性
-		Long id = params.long('classGrade.id')
+		Long id = Long.valueOf(params['classGrade.id'])
 		ClassGrade classGrade = ClassGrade.get(id)
 		if(!params.no || !params.name || !classGrade)
 			throw new ServiceException('注册信息不完整，至少包括学号、姓名、所在班级信息')
@@ -105,6 +111,12 @@ class RegisterService {
 			person.account = new User(username:params.no, password:params.password, enabled:true)
 			if(!person.save())
 				throw new ServiceException('创建登录账号失败')
+			// 分配用户和学生权限
+			['ROLE_USER', 'ROLE_STUDENT'].each { auth->
+				def role = Role.findByAuthority(auth)
+				if(role)
+					UserRole.create(person.account, role)
+			}
 		} else {
 			throw new ServiceException('相关登录账号已存在，不能重复注册')
 		}
