@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import bzu.Person;
+
 class UserService {
 	
 	static transactional = false
@@ -14,8 +16,14 @@ class UserService {
 	def grailsApplication
 	def springSecurityService
 	
+	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 	User getCurrentUser() {
 		springSecurityService.currentUser
+	}
+	
+	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+	Person getCurrentPerson() {
+		currentUser.person
 	}
 	
 	// 通过门户网站验证用户名和密码
