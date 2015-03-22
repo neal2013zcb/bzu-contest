@@ -29,18 +29,12 @@
 						<g:sortableColumn property="name" title="${message(code: 'person.name.label', default: 'Name')}" />
 					
 						<g:sortableColumn property="gender" title="${message(code: 'person.gender.label', default: 'Gender')}" />
-						
-						<g:sortableColumn property="category" title="${message(code: 'person.category.label', default: 'Category')}" />
 					
-						<g:sortableColumn property="officePhone" title="${message(code: 'person.officePhone.label', default: 'Office Phone')}" />
+						<g:sortableColumn property="workPhone" title="${message(code: 'person.workPhone.label', default: 'Work Phone')}" />
 					
-						<g:sortableColumn property="cellPhone" title="${message(code: 'person.cellPhone.label', default: 'Cell Phone')}" />
+						<g:sortableColumn property="homePhone" title="${message(code: 'person.homePhone.label', default: 'Home Phone')}" />
 					
 						<g:sortableColumn property="email" title="${message(code: 'person.email.label', default: 'Email')}" />
-
-						<g:sortableColumn property="qq" title="${message(code: 'person.qq.label', default: 'QQ')}" />
-						
-						<g:sortableColumn property="weixin" title="${message(code: 'person.weixin.label', default: 'WeChat')}" />
 					
 					</tr>
 				</thead>
@@ -52,19 +46,13 @@
 					
 						<td>${fieldValue(bean: personInstance, field: "name")}</td>
 					
-						<td><g:message code="person.gender.${personInstance.gender}"/></td>
-						
-						<td><g:message code="person.category.${personInstance.category}"/></td>
+						<td>${fieldValue(bean: personInstance, field: "gender")}</td>
 					
-						<td>${fieldValue(bean: personInstance, field: "officePhone")}</td>
+						<td>${fieldValue(bean: personInstance, field: "workPhone")}</td>
 					
-						<td>${fieldValue(bean: personInstance, field: "cellPhone")}</td>
+						<td>${fieldValue(bean: personInstance, field: "homePhone")}</td>
 					
 						<td>${fieldValue(bean: personInstance, field: "email")}</td>
-						
-						<td>${fieldValue(bean: personInstance, field: "qq")}</td>
-						
-						<td>${fieldValue(bean: personInstance, field: "weixin")}</td>
 					
 					</tr>
 				</g:each>

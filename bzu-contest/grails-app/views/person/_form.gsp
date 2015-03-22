@@ -23,31 +23,23 @@
 		<g:message code="person.gender.label" default="Gender" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select name="gender" from="${personInstance.constraints.gender.inList}" value="${personInstance?.gender}" valueMessagePrefix="person.gender"/>
+	<g:select name="gender" from="${personInstance.constraints.gender.inList}" required="" value="${personInstance?.gender}" valueMessagePrefix="person.gender"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'category', 'error')} required">
-	<label for="category">
-		<g:message code="person.category.label" default="Category" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select name="category" from="${personInstance.constraints.category.inList}" required="" value="${personInstance?.category}" valueMessagePrefix="person.category"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'officePhone', 'error')} ">
-	<label for="officePhone">
-		<g:message code="person.officePhone.label" default="Office Phone" />
+<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'workPhone', 'error')} ">
+	<label for="workPhone">
+		<g:message code="person.workPhone.label" default="Work Phone" />
 		
 	</label>
-	<g:textField name="officePhone" maxlength="20" pattern="${personInstance.constraints.officePhone.matches}" value="${personInstance?.officePhone}"/>
+	<g:textField name="workPhone" maxlength="20" pattern="${personInstance.constraints.workPhone.matches}" value="${personInstance?.workPhone}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'cellPhone', 'error')} ">
-	<label for="cellPhone">
-		<g:message code="person.cellPhone.label" default="Cell Phone" />
+<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'homePhone', 'error')} ">
+	<label for="homePhone">
+		<g:message code="person.homePhone.label" default="Home Phone" />
 		
 	</label>
-	<g:textField name="cellPhone" maxlength="20" pattern="${personInstance.constraints.cellPhone.matches}" value="${personInstance?.cellPhone}"/>
+	<g:textField name="homePhone" maxlength="20" pattern="${personInstance.constraints.homePhone.matches}" value="${personInstance?.homePhone}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: personInstance, field: 'email', 'error')} ">
@@ -58,18 +50,11 @@
 	<g:field type="email" name="email" maxlength="50" value="${personInstance?.email}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'qq', 'error')} ">
-	<label for="qq">
-		<g:message code="person.qq.label" default="Qq" />
+<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'account', 'error')} ">
+	<label for="account">
+		<g:message code="person.account.label" default="Account" />
 		
 	</label>
-	<g:textField name="qq" maxlength="20" pattern="${personInstance.constraints.qq.matches}" value="${personInstance?.qq}"/>
+	<g:select id="account" name="account.id" from="${bzu.security.User.list()}" optionKey="id" value="${personInstance?.account?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'weixin', 'error')} ">
-	<label for="weixin">
-		<g:message code="person.weixin.label" default="Weixin" />
-		
-	</label>
-	<g:textField name="weixin" maxlength="20" pattern="${personInstance.constraints.weixin.matches}" value="${personInstance?.weixin}"/>
-</div>

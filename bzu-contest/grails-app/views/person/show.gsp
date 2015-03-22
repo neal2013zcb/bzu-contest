@@ -45,34 +45,25 @@
 				<li class="fieldcontain">
 					<span id="gender-label" class="property-label"><g:message code="person.gender.label" default="Gender" /></span>
 					
-						<span class="property-value" aria-labelledby="gender-label"><g:message code="person.gender.${personInstance.gender}"/></span>
+						<span class="property-value" aria-labelledby="gender-label"><g:fieldValue bean="${personInstance}" field="gender"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${personInstance?.category}">
+				<g:if test="${personInstance?.workPhone}">
 				<li class="fieldcontain">
-					<span id="category-label" class="property-label"><g:message code="person.category.label" default="Category" /></span>
+					<span id="workPhone-label" class="property-label"><g:message code="person.workPhone.label" default="Work Phone" /></span>
 					
-						<span class="property-value" aria-labelledby="category-label"><g:message code="person.category.${personInstance.category}"/></span>
+						<span class="property-value" aria-labelledby="workPhone-label"><g:fieldValue bean="${personInstance}" field="workPhone"/></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${personInstance?.officePhone}">
+				<g:if test="${personInstance?.homePhone}">
 				<li class="fieldcontain">
-					<span id="officePhone-label" class="property-label"><g:message code="person.officePhone.label" default="Office Phone" /></span>
+					<span id="homePhone-label" class="property-label"><g:message code="person.homePhone.label" default="Home Phone" /></span>
 					
-						<span class="property-value" aria-labelledby="officePhone-label"><g:fieldValue bean="${personInstance}" field="officePhone"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${personInstance?.cellPhone}">
-				<li class="fieldcontain">
-					<span id="cellPhone-label" class="property-label"><g:message code="person.cellPhone.label" default="Cell Phone" /></span>
-					
-						<span class="property-value" aria-labelledby="cellPhone-label"><g:fieldValue bean="${personInstance}" field="cellPhone"/></span>
+						<span class="property-value" aria-labelledby="homePhone-label"><g:fieldValue bean="${personInstance}" field="homePhone"/></span>
 					
 				</li>
 				</g:if>
@@ -86,20 +77,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${personInstance?.qq}">
+				<g:if test="${personInstance?.account}">
 				<li class="fieldcontain">
-					<span id="qq-label" class="property-label"><g:message code="person.qq.label" default="Qq" /></span>
+					<span id="account-label" class="property-label"><g:message code="person.account.label" default="Account" /></span>
 					
-						<span class="property-value" aria-labelledby="qq-label"><g:fieldValue bean="${personInstance}" field="qq"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${personInstance?.weixin}">
-				<li class="fieldcontain">
-					<span id="weixin-label" class="property-label"><g:message code="person.weixin.label" default="Weixin" /></span>
-					
-						<span class="property-value" aria-labelledby="weixin-label"><g:fieldValue bean="${personInstance}" field="weixin"/></span>
+						<span class="property-value" aria-labelledby="account-label"><g:link controller="user" action="show" id="${personInstance?.account?.id}">${personInstance?.account?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
