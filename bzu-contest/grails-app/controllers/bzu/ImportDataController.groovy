@@ -297,9 +297,10 @@ class ImportDataController {
 		
 		// 取默认班级
 		def defaultClassGradeId = params.long('classGrade.id', 0L)
-		def toClassGradeId = { classGrade->
-			if(classGrade instanceof Long) return classGrade
-			return ClassGrade.where { name==classGrade }.get()?.id
+		def defaultClassGrade = ClassGrade.get(defaultClassGradeId)
+		def toClassGrade = { classGrade->
+			if(classGrade instanceof ClassGrade) return classGrade
+			return ClassGrade.where { name==classGrade }.get()
 		}
 
 		// 从提交的数据中提分解出学生信息，保存并统提交结果
@@ -315,15 +316,15 @@ class ImportDataController {
 				// 挑选出格式正确的记录
 				// 学号，姓名，所在班级名称
 				def case1 = a.length >=3
-				def case2 = defaultClassGradeId && a.length >=2
+				def case2 = defaultClassGrade && a.length >=2
 				if(case1 || case2) {
 					// 未指定所在班级时采用默认班级
-					def classGradeId = a.length>2 ? toClassGradeId(a[2]) : defaultClassGradeId
+					def classGrade = a.length>2 ? toClassGrade(a[2]) : defaultClassGrade
 					// 注册学生
 					try {
 						def obj = registerService.registerStudent([no:a[0], name:a[1],
 								password:BCrypt.gensalt(3),   // 设置随机密码
-								'classGrade.id':classGradeId])
+								classGrade:classGrade])
 						// 注册成功，添加到提交记录列表中
 						result.r << obj
 					} catch (ServiceException e) {
@@ -368,9 +369,10 @@ class ImportDataController {
 		
 		// 取默认所属系院
 		def defaultDepartmentId = params.long('department.id', 0L)
-		def toDepartmentId = { department->
-			if(department instanceof Long) return department
-			return Department.where { no==department || name==department || shortName==department }.get()?.id
+		def defaultDepartment = Department.get(defaultDepartmentId)
+		def toDepartment = { department->
+			if(department instanceof Department) return department
+			return Department.where { no==department || name==department || shortName==department }.get()
 		}
 
 		// 从提交的数据中提分解出教工信息，保存并统提交结果
@@ -386,15 +388,15 @@ class ImportDataController {
 				// 挑选出格式正确的记录
 				// 工号，姓名，所在单位名称/简称/代码
 				def case1 = a.length >=3
-				def case2 = defaultDepartmentId && a.length >=2
+				def case2 = defaultDepartment && a.length >=2
 				if(case1 || case2) {
 					// 未指定所在单位时采用默认单位
-					def departmentId = a.length>2 ? toDepartmentId(a[2]) : defaultDepartmentId
+					def department = a.length>2 ? toDepartment(a[2]) : defaultDepartment
 					// 注册教工
 					try {
 						def obj = registerService.registerStaff([no:a[0], name:a[1],
 								password:BCrypt.gensalt(3),   // 设置随机密码
-								'department.id':departmentId])
+								department:department])
 						// 注册成功，添加到提交记录列表中
 						result.r << obj
 					} catch (ServiceException e) {
