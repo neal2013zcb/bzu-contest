@@ -22,14 +22,6 @@
           </div>
         </div>
         
-    	<div class="control-group">
-          <label class="control-label" for="name">姓名</label>
-          <div class="controls">
-            <input name="name" value="${params.name}" placeholder="您的姓名" class="input-xlarge" type="text" required="required">
-            <p class="help-block">输入您的真实姓名</p>
-          </div>
-        </div>
-        
         <div class="control-group">
           <label class="control-label" for="password">密码</label>
           <div class="controls">
@@ -37,11 +29,19 @@
             <p class="help-block">输入校内门户网站密码以验证身份</p>
           </div>
         </div>
+        
+    	<div class="control-group">
+          <label class="control-label" for="name">姓名</label>
+          <div class="controls">
+            <input name="name" value="${params.name}" placeholder="您的姓名" class="input-xlarge" type="text" required="required">
+            <p class="help-block">输入您的真实姓名</p>
+          </div>
+        </div>
 
     	<div class="control-group">
           <label class="control-label">所在班级</label>
           <div class="controls">
-          	<g:select name="classGrade.id" from="${ClassGrade.list(sort:'name', order:'desc')}" optionKey="id" noSelection="['null':'']" value="${params['classGrade.id']}" required=""/>
+          	<g:select name="classGrade.id" from="${ClassGrade.list(sort:'name', order:'desc')}" optionKey="id" noSelection="['':'']" value="${params['classGrade.id']}" required=""/>
             <p class="help-block">选择您所在的班级</p>
           </div>
 
