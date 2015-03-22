@@ -61,12 +61,12 @@ class RegisterController {
 			render view:failAction, model:params
 			return false
 		}
-		if(failAction=='student' && params.classGrade.id=='null') {
+		if(failAction=='student' && !params.classGrade.id) {
 			displayFlashMessage(text:"必须填写班级", type:'error')
 			render view:failAction, model:params
 			return false
 		}
-		if(failAction=='staff' && params.department.id=='null') {
+		if(failAction=='staff' && !params.department.id) {
 			displayFlashMessage(text:"必须填写所在单位", type:'error')
 			render view:failAction, model:params
 			return false
