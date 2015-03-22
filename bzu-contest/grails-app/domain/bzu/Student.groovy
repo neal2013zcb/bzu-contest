@@ -6,29 +6,11 @@ package bzu
  * @author zhbo
  *
  */
-class Student {
-	/**
-	 * 个人信息
-	 */
-	Person person
+class Student extends Person {
 	/**
 	 * 所在班级
 	 */
 	ClassGrade classGrade
-	/**
-	 * 学号
-	 * @return
-	 */
-	String getNo() {
-		person.no
-	}
-	/**
-	 * 学生姓名
-	 * @return
-	 */
-	String getName() {
-		person.name
-	}
 	/**
 	 * 所学专业
 	 * @return
@@ -47,11 +29,6 @@ class Student {
 	static belongsTo = [classGrade:ClassGrade]
 
     static constraints = {
-		person nullable:false, unique:true // 唯一的
 		classGrade nullable:false
     }
-	
-	String toString() {
-		person.toString()
-	}
 }
