@@ -23,7 +23,7 @@ class UserService {
 	
 	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 	Person getCurrentPerson() {
-		currentUser.person
+		currentUser?.person
 	}
 	
 	// 通过门户网站验证用户名和密码
