@@ -8,18 +8,14 @@
         
         <div class="container">
             <div class="content">
-                <div class="page-header">
-                    <theme:layoutTitle/>
-                </div>
-                <div class="span12">
-                    <theme:layoutZone name="secondary-navigation"/>
-                </div>
-                <div class="row">
-                    <div class="span8">
-                        <theme:layoutZone name="body"/>
-                    </div>
+                <div class="row-fluid">
                     <div class="span3">
                         <theme:layoutZone name="sidebar"/>
+                    </div>
+                    <div class="span8">
+            			<theme:layoutZone name="page-header"/>
+		                <theme:layoutZone name="secondary-navigation"/>
+                        <theme:layoutZone name="body"/>
                     </div>
                 </div>
             </div>

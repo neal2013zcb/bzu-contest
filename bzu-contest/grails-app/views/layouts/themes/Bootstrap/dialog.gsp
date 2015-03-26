@@ -4,12 +4,11 @@
         <theme:layoutTemplate name="head"/>
     </theme:head>
     <theme:body>
+    	<theme:layoutZone name="header" />
         <div class="container">
             <div class="row">
                 <div class="content span6 offset3">
-                    <div class="page-header">
-                        <theme:layoutTitle/>
-                    </div>
+            		<theme:layoutZone name="page-header"/>
                     <theme:layoutZone name="body"/>
                 </div>
             </div>

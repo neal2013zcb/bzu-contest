@@ -8,10 +8,8 @@
         
         <div class="container">
             <div class="content">
-                <div class="page-header">
-                    <theme:layoutTitle/>
-                    <theme:layoutZone name="secondary-navigation"/>
-                </div>
+            	<theme:layoutZone name="page-header"/>
+                <theme:layoutZone name="secondary-navigation"/>
                 <div class="row">
                     <div class="span12">
                         <theme:layoutZone name="body"/>
