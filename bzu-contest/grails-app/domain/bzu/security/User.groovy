@@ -30,6 +30,7 @@ class User {
 		password column: '`password`'
 		version false
 		sort 'username'
+		person lazy:false // use eager fetching
 	}
 
 	Set<Role> getAuthorities() {
