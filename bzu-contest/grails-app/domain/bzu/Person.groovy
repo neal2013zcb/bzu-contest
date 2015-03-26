@@ -34,6 +34,19 @@ class Person {
 	 */
 	String email
 	/**
+	 * 已审核
+	 */
+	boolean approved = false
+	/**
+	 * 审核人
+	 */
+	Person verifier = null
+	/**
+	 * 审核时间
+	 */
+	Date dateOfApproval = null
+	
+	/**
 	 * 登录账号
 	 */
 	User account
@@ -48,6 +61,9 @@ class Person {
 		homePhone nullable:true, blank:true, maxSize:20, shared:'phone_matches'
 		email nullable:true, blank:true, maxSize:50, email:true
 		account nullable:true
+		approved nullable:false
+		verifier nullable:true
+		dateOfApproval nullable:true
     }
 	
 	static mapping = {
