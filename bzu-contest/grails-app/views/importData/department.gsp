@@ -6,6 +6,11 @@
 		<title>导入单位信息</title>
 	</head>
 	<body>
+
+<theme:zone name="page-header">
+	<legend>导入单位信息</legend>
+</theme:zone>
+
 <theme:zone name="secondary-navigation">
 	<g:render template="subnav"/>
 </theme:zone>
@@ -116,15 +121,15 @@
 			<ui:fieldInput>
 				<table style="color:brown">
 					<tr>
-						<td class="span1"><g:message code="department.no.label"/></td>
-						<td class="span1"><g:message code="department.name.label"/></td>
-						<td class="span1"><g:message code="department.shortName.label"/></td>
-						<td><g:message code="department.category.label"/>（${Constants.Department.Category.VALUES.collect{g.message(code:'department.category.'+it)}.join('/')}）</td>
+						<td class="span2"><g:message code="department.no.label"/></td>
+						<td class="span2"><g:message code="department.name.label"/></td>
+						<td class="span2"><g:message code="department.shortName.label"/></td>
+						<td class="span4"><g:message code="department.category.label"/>（${Constants.Department.Category.VALUES.collect{g.message(code:'department.category.'+it)}.join('/')}）</td>
 					</tr>
 				</table>
 				<blockquote>
 				</blockquote>
-				<g:textArea name="text" required="" class="span6" rows="5">${result?.bad?.join('\n')}</g:textArea>
+				<g:textArea name="text" required="" class="span12" rows="5">${result?.bad?.join('\n')}</g:textArea>
 			</ui:fieldInput>
 		</ui:field>
 		<ui:field name="category" label="默认单位类别" hint="省略单位类别的记录，默认为此类别">

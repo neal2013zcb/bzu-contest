@@ -7,6 +7,11 @@
 		<title>导入学生信息</title>
 	</head>
 	<body>
+
+<theme:zone name="page-header">
+	<legend>导入学生信息</legend>
+</theme:zone>
+
 <theme:zone name="secondary-navigation">
 	<g:render template="subnav"/>
 </theme:zone>
@@ -111,18 +116,18 @@
 
 <ui:form action="importStudent">
 	<ui:fieldGroup>
-		<ui:field name="text" label="班级信息列表 *" hint="每条记录占一行，依次包含规定字段，并用空白隔开。">
+		<ui:field name="text" label="学生信息列表 *" hint="每条记录占一行，依次包含规定字段，并用空白隔开。">
 			<ui:fieldInput>
 				<table style="color:brown">
 					<tr>
-						<td class="span1"><g:message code="student.no.label"/></td>
-						<td class="span1"><g:message code="student.name.label"/></td>
-						<td class="span1"><g:message code="student.classGrade.label"/></td>
+						<td class="span2"><g:message code="student.no.label"/></td>
+						<td class="span2"><g:message code="student.name.label"/></td>
+						<td class="span2"><g:message code="student.classGrade.label"/></td>
 					</tr>
 				</table>
 				<blockquote>
 				</blockquote>
-				<g:textArea name="text" required="" class="span6" rows="5">${result?.bad?.join('\n')}</g:textArea>
+				<g:textArea name="text" required="" class="span12" rows="5">${result?.bad?.join('\n')}</g:textArea>
 			</ui:fieldInput>
 		</ui:field>
 		<ui:field name="classGrade" label="默认所在班级" hint="省略所在班级的记录，默认为此班级">

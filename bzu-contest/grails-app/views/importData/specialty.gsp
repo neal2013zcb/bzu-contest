@@ -7,6 +7,11 @@
 		<title>导入专业信息</title>
 	</head>
 	<body>
+
+<theme:zone name="page-header">
+	<legend>导入专业信息</legend>
+</theme:zone>
+
 <theme:zone name="secondary-navigation">
 	<g:render template="subnav"/>
 </theme:zone>
@@ -119,16 +124,16 @@
 			<ui:fieldInput>
 				<table style="color:brown">
 					<tr>
-						<td class="span1"><g:message code="specialty.no.label"/></td>
-						<td class="span1"><g:message code="specialty.name.label"/></td>
-						<td class="span1"><g:message code="specialty.shortName.label"/></td>
-						<td><g:message code="specialty.level.label"/>（${Constants.Specialty.Level.VALUES.collect{g.message(code:'specialty.level.'+it)}.join('/')}）</td>
-						<td class="span1"><g:message code="specialty.department.label"/></td>
+						<td class="span2"><g:message code="specialty.no.label"/></td>
+						<td class="span2"><g:message code="specialty.name.label"/></td>
+						<td class="span2"><g:message code="specialty.shortName.label"/></td>
+						<td class="span4"><g:message code="specialty.level.label"/>（${Constants.Specialty.Level.VALUES.collect{g.message(code:'specialty.level.'+it)}.join('/')}）</td>
+						<td class="span2"><g:message code="specialty.department.label"/></td>
 					</tr>
 				</table>
 				<blockquote>
 				</blockquote>
-				<g:textArea name="text" required="" class="span6" rows="5">${result?.bad?.join('\n')}</g:textArea>
+				<g:textArea name="text" required="" class="span12" rows="5">${result?.bad?.join('\n')}</g:textArea>
 			</ui:fieldInput>
 		</ui:field>
 		<ui:field name="level" label="默认专业层次" hint="省略专业层次的记录，默认为此层次">

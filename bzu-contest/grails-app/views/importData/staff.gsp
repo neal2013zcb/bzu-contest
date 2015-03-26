@@ -6,6 +6,11 @@
 		<title>导入教工信息</title>
 	</head>
 	<body>
+
+<theme:zone name="page-header">
+	<legend>导入教工信息</legend>
+</theme:zone>
+
 <theme:zone name="secondary-navigation">
 	<g:render template="subnav"/>
 </theme:zone>
@@ -114,14 +119,14 @@
 			<ui:fieldInput>
 				<table style="color:brown">
 					<tr>
-						<td class="span1"><g:message code="staff.no.label"/></td>
-						<td class="span1"><g:message code="staff.name.label"/></td>
-						<td class="span1"><g:message code="staff.department.label"/></td>
+						<td class="span2"><g:message code="staff.no.label"/></td>
+						<td class="span2"><g:message code="staff.name.label"/></td>
+						<td class="span2"><g:message code="staff.department.label"/></td>
 					</tr>
 				</table>
 				<blockquote>
 				</blockquote>
-				<g:textArea name="text" required="" class="span6" rows="5">${result?.bad?.join('\n')}</g:textArea>
+				<g:textArea name="text" required="" class="span12" rows="5">${result?.bad?.join('\n')}</g:textArea>
 			</ui:fieldInput>
 		</ui:field>
 		<ui:field name="department" label="默认所在单位" hint="省略所在单位的记录，默认为此单位">
