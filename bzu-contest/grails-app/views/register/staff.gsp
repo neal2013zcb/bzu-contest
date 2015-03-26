@@ -17,7 +17,7 @@
     	<div class="control-group">
           <label class="control-label" for="no">教工号</label>
           <div class="controls">
-            <input name="no" value="${params.no}" placeholder="您的教工号" class="input-xlarge" type="text" required="required">
+            <input id="no" name="no" value="${params.no}" placeholder="您的教工号" class="input-xlarge" type="text" required="required">
             <p class="help-block">输入您的教工号</p>
           </div>
         </div>
@@ -41,7 +41,7 @@
     	<div class="control-group">
           <label class="control-label">所在单位</label>
           <div class="controls">
-          	<g:select name="department.id" from="${Department.list(sort:'name', order:'desc')}" optionKey="id" noSelection="['':'']" value="${params['department.id']}" required=""/>
+          	<g:select name="department.id" from="${Department.list(sort:'name')}" optionKey="id" noSelection="['':'']" value="${params['department.id']}" required=""/>
             <p class="help-block">选择您所在的单位</p>
           </div>
 
@@ -55,6 +55,9 @@
 
     </fieldset>
   </ui:form>
+<jq:jquery>
+$('#no').focus();
+</jq:jquery>
 
 	</theme:zone>
 

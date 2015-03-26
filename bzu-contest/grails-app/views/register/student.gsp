@@ -17,7 +17,7 @@
     	<div class="control-group">
           <label class="control-label" for="no">学号</label>
           <div class="controls">
-            <input name="no" value="${params.no}" placeholder="您的学号" class="input-xlarge" type="text" required="required">
+            <input id="no" name="no" value="${params.no}" placeholder="您的学号" class="input-xlarge" type="text" required="required">
             <p class="help-block">输入您的学号</p>
           </div>
         </div>
@@ -55,6 +55,9 @@
 
     </fieldset>
   </ui:form>
+<jq:jquery>
+$('#no').focus();
+</jq:jquery>
 
 	</theme:zone>
 </body>
