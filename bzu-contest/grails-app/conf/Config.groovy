@@ -119,13 +119,13 @@ grails.gorm.default.constraints = {
 
 // 各类权限
 app.roles = [
-'USER',			// 用户
-'ADMIN',		// 系统管理
-'DEPARTMENT',	// 系院管理
-'PROJECT',		// 项目管理
-'INSPECTOR',	// 督导
-'TEACHER',		// 教师
-'STUDENT',		// 学生
+'ROLE_USER',		// 注册用户
+'ROLE_ADMIN',		// 系统管理
+'ROLE_DEPARTMENT',	// 系院管理
+'ROLE_PROJECT',		// 项目管理
+'ROLE_INSPECTOR',	// 竞赛督导
+'ROLE_TEACHER',		// 教师
+'ROLE_STUDENT',		// 学生
 ]
 
 // 校内门户登录网址及返回结果
