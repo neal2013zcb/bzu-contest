@@ -2,7 +2,10 @@ import grails.util.Environment;
 import bzu.ClassGrade;
 import bzu.Department;
 import bzu.Specialty;
+import bzu.Staff;
+import bzu.Student;
 import bzu.security.Role;
+import bzu.security.User;
 
 class BootStrap {
 	
@@ -40,6 +43,12 @@ class BootStrap {
 			c4.save()
 			c5.save()
 			c6.save()
+			['1111':'丁老师','2222':'孙老师','3333':'张老师','4444':'李老师','5555':'王老师','6666':'赵老师'].each { no, name ->
+				new Staff(no:no, name:name, department:d1, account:new User(username:no, password:no, enabled:true)).save()
+			}
+			['1001':'丁一','1002':'孙二','1003':'张三','1004':'李四','1005':'王五','1006':'赵六'].each { no, name ->
+				new Student(no:no, name:name, classGrade:c1, account:new User(username:no, password:no, enabled:true)).save()
+			}
 		}
     }
     def destroy = {
