@@ -13,7 +13,7 @@ class PersonTagLib {
 	def userService
 	
 	/**
-	 * 指定登录账号 user、个人信息 person 或当前用户是教工则输出
+	 * 指定登录账号 user、个人信息 person 或当前用户是教师则输出
 	 * 
      * @attr person 个人信息对象
      * @attr user 登录账号

@@ -16,19 +16,19 @@ class RegisterService {
 	def messageSource
 
 	/**
-	 * 教职教工注册。
+	 * 教职教师注册。
 	 * 根据提供的工号、姓名、单位及个人信息，创建个人信息、登录账号，并分配用户和教师权限。
 	 * 
 	 * @param params
-	 * @return 教工对象，如果注册成功；否则，null
+	 * @return 教师对象，如果注册成功；否则，null
 	 */
     Staff registerStaff(Map params) {
-		// 创建教工信息
+		// 创建教师信息
 		Staff staff = Staff.findByNo(params.no)
 		if(staff == null) {
 			staff = new Staff(params)
 			if(!staff.save())
-				throw new ServiceException("保存教工信息失败：${messageSource.getMessage(staff.errors.fieldError, Locale.getDefault())}")
+				throw new ServiceException("保存教师信息失败：${messageSource.getMessage(staff.errors.fieldError, Locale.getDefault())}")
 		}
 		
 		// 分配登录账号

@@ -90,10 +90,10 @@
 						<div class="caption">
 							<h3 style="color:#8B1A1A">
 								<i class="fa fa-lg fa-user"></i>
-								教工
+								教师
 							</h3>
 							<p>
-								包括各单位所有教工。提供教工列表（（包括<span style="color:brown">员工号，姓名，所在单位</span>），可以批量导入教工信息。
+								包括各单位所有教师。提供教师列表（（包括<span style="color:brown">教师号，姓名，所在单位</span>），可以批量导入教师信息。
 							</p>
 							<p>
 								<g:link class="btn btn-primary" action="staff">导入</g:link>

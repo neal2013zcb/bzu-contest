@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
 	<theme:layout name="dialog"/>
-	<title>教工注册</title>
+	<title>教师注册</title>
 </head>
 <body>
 
@@ -15,10 +15,10 @@
     <fieldset>
 
     	<div class="control-group">
-          <label class="control-label" for="no">教工号</label>
+          <label class="control-label" for="no">教师号</label>
           <div class="controls">
-            <input id="no" name="no" value="${params.no}" placeholder="您的教工号" class="input-xlarge" type="text" required="required">
-            <p class="help-block">输入您的教工号</p>
+            <input id="no" name="no" value="${params.no}" placeholder="您的教师号" class="input-xlarge" type="text" required="required">
+            <p class="help-block">输入您的教师号</p>
           </div>
         </div>
         
@@ -49,7 +49,7 @@
 
     	<div class="control-group">
           <div class="controls">
-            <button class="btn btn-primary btn-large">教工注册</button>
+            <button class="btn btn-primary btn-large">教师注册</button>
           </div>
         </div>
 

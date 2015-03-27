@@ -1,7 +1,7 @@
 package bzu
 
 /**
- * 教职员工
+ * 教师
  * 
  * @author zhbo
  *

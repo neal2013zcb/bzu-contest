@@ -4,7 +4,7 @@ import bzu.Staff;
 import bzu.Student;
 
 /**
- * 注册员工和学生
+ * 注册教师和学生
  * 
  * @author zhbo
  *
@@ -20,10 +20,10 @@ class RegisterController {
 	 */
 	RegisterService registerService
 	
-	// 选择员工注册或学生注册
+	// 选择教师注册或学生注册
 	def index() { }
 
-	// 员工注册
+	// 教师注册
     def staff() { }
 	def registerStaff() {
 		// 检查参数完整性
@@ -31,10 +31,10 @@ class RegisterController {
 		// 通过校内门户验证用户身份
 		if(!passWebPortalAuthCheck('staff')) return
 		
-		// 注册员工
+		// 注册教师
 		try {
 			Staff staff = registerService.registerStaff(params)
-			displayFlashMessage(text:"员工 ${staff} 注册成功", type:'info')
+			displayFlashMessage(text:"教师 ${staff} 注册成功", type:'info')
 			redirect controller:'login' // 注册成功后转登录界面
 			return
 		} catch (Exception e) {
@@ -47,7 +47,7 @@ class RegisterController {
 	private boolean checkParams(String failAction) {
 		// 检查参数
 		if(!params.no) {
-			displayFlashMessage(text:"必须填写${failAction=='student' ? '学号' : '教工号'}", type:'error')
+			displayFlashMessage(text:"必须填写${failAction=='student' ? '学号' : '教师号'}", type:'error')
 			render view:failAction, model:params
 			return false
 		}
@@ -105,7 +105,7 @@ class RegisterController {
 		if(!checkParams('student')) return
 		// 通过校内门户验证用户身份
 		if(!passWebPortalAuthCheck('student')) return
-		// 注册员工
+		// 注册教师
 		try {
 			Student student = registerService.registerStudent(params)
 			displayFlashMessage(text:"学生 ${student} 注册成功", type:'info')

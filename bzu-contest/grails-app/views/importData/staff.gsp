@@ -3,12 +3,12 @@
 <html>
 	<head>
 		<theme:layout name="sidebar"/>
-		<title>导入教工信息</title>
+		<title>导入教师信息</title>
 	</head>
 	<body>
 
 <theme:zone name="page-header">
-	<legend>导入教工信息</legend>
+	<legend>导入教师信息</legend>
 </theme:zone>
 
 <theme:zone name="secondary-navigation">
@@ -115,7 +115,7 @@
 
 <ui:form action="importStaff">
 	<ui:fieldGroup>
-		<ui:field name="text" label="教工信息列表 *" hint="每条记录占一行，依次包含规定字段，并用空白隔开。">
+		<ui:field name="text" label="教师信息列表 *" hint="每条记录占一行，依次包含规定字段，并用空白隔开。">
 			<ui:fieldInput>
 				<table style="color:brown">
 					<tr>

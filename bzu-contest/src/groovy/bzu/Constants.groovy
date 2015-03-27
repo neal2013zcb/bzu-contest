@@ -13,21 +13,6 @@ class Constants {
 	 */
 	static interface Person {
 		/**
-		 * 人员类别（0其他，1学生，2员工，3VIP）。
-		 */
-		static interface Category {
-			/** 其他（未知的） = '0' */
-			String UNKNOWN = '0'
-			/** 学生 = '1' */
-			String STUDENT = '1'
-			/** 员工 = '2' */
-			String STAFF = '2'
-			/** VIP = '3' */
-			String VIP = '3'
-			/** 所有人员类别 */
-			List VALUES = [UNKNOWN, STUDENT, STAFF, VIP]
-		}
-		/**
 		 * 性别（-未指定，M男，F女）
 		 */
 		static interface Gender {

@@ -9,7 +9,7 @@ import grails.plugins.springsecurity.Secured;
 /**
  * 导入数据
  * 
- * 管理员导入单位、专业、班级、学生、员工。
+ * 管理员导入单位、专业、班级、学生、教师。
  * 
  * @author zhbo
  *
@@ -351,11 +351,11 @@ class ImportDataController {
 	}
 	
 	/**
-	 * 显示导入教工表单
+	 * 显示导入教师表单
 	 */
 	def staff() { }
 	/**
-	 * 导入教工（根据工号，姓名，所在单位名称/简称/代码）
+	 * 导入教师（根据工号，姓名，所在单位名称/简称/代码）
 	 */
 	def importStaff() {
 		// 取数据列表
@@ -375,7 +375,7 @@ class ImportDataController {
 			return Department.where { no==department || name==department || shortName==department }.get()
 		}
 
-		// 从提交的数据中提分解出教工信息，保存并统提交结果
+		// 从提交的数据中提分解出教师信息，保存并统提交结果
 		// n-提交数，e-错误数，r-提交记录列表, bad-错误记录, err-错误信息
 		def result = [n:0, e:0, r:[], bad:[], err:[], params:params]
 		text.eachLine { record->
@@ -392,7 +392,7 @@ class ImportDataController {
 				if(case1 || case2) {
 					// 未指定所在单位时采用默认单位
 					def department = a.length>2 ? toDepartment(a[2]) : defaultDepartment
-					// 注册教工
+					// 注册教师
 					try {
 						def obj = registerService.registerStaff([no:a[0], name:a[1],
 								password:BCrypt.gensalt(3),   // 设置随机密码

@@ -30,7 +30,7 @@
 		</div>
 		<div class="span6">
 			<div class="hero-unit">
-				<h2><i class="fa fa-user"></i> 教工注册</h2>
+				<h2><i class="fa fa-user"></i> 教师注册</h2>
 				<p>在校教职工注册后可以</p>
 				<ul style="color:green">
 					<li>查看学科竞赛信息</li>
@@ -38,7 +38,7 @@
 					<li>竞赛管理</li>
 				</ul>
 				<p>
-					<g:link class="btn btn-primary btn-large" action="staff">教工注册 »</g:link>
+					<g:link class="btn btn-primary btn-large" action="staff">教师注册 »</g:link>
 				</p>
 			</div>
 		</div>

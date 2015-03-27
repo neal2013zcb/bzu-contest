@@ -29,7 +29,7 @@ class Department {
 	 */
 	Set<Specialty> specialties
 	/**
-	 * 教工
+	 * 教师
 	 */
 	Set<Staff> staffs
 	
