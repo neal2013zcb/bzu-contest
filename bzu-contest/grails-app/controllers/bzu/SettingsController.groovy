@@ -23,7 +23,7 @@ class SettingsController {
 	
 	static defaultAction = "profile"
 	
-	static allowedMethods = [updateProfile: "POST"]
+	static allowedMethods = [updateProfile: "POST", changePassword:"POST", updateContacts:"POST"]
 
 	SpringSecurityService springSecurityService
 	UserService userService
@@ -73,10 +73,10 @@ class SettingsController {
 		[user:user, roles:roles, allRoles:allRoles]
 	}
 	private List allRoles(Staff staff) {
-		['ROLE_USER','ROLE_TEACHER','ROLE_PROJECT','ROLE_DEPARTMENT','ROLE_INSPECTOR','ROLE_ADMIN']
+		Constants.Role.STAFF_ROLES
 	}
 	private List allRoles(Student student) {
-		['ROLE_USER','ROLE_STUDENT']
+		Constants.Role.STUDENT_ROLES
 	}
 	/**
 	 * 修改密码
