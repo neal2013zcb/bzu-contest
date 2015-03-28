@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="bzu.Constants"%>
 <html lang="zh-cn">
 <head>
 	<theme:layout name="report"/>
@@ -11,6 +12,11 @@
 <theme:zone name="body">
 
 <ui:displayMessage/>
+
+<g:set var="allowedRoles" value="${Constants.Role.STAFF_ROLES}"/>
+<sec:ifNotGranted roles="ROLE_ADMIN">
+	<g:set var="allowedRoles" value="${allowedRoles - Constants.Role.HIGH_LEVEL_ROLES}"/>
+</sec:ifNotGranted>
 
 <ui:table>
 	<thead>
@@ -37,28 +43,14 @@
 			<td>${fieldValue(bean: staffInstance, field: "workPhone")}</td>
 			<td>${fieldValue(bean: staffInstance, field: "homePhone")}</td>
 			<td>${fieldValue(bean: staffInstance, field: "email")}</td>
-<sec:ifAnyGranted roles="ROLE_ADMIN">
 			<td><g:render template="/person/approved" model="[person:staffInstance]"/></td>
 			<td><g:render template="/user/accountManage" model="[user:staffInstance.account]"/></td>
-			<td><g:render template="/user/authoritiesManage" model="[user:staffInstance.account]"/></td>
-</sec:ifAnyGranted>
-<sec:ifNotGranted roles="ROLE_ADMIN">
-	<bzu:ifSameDepartment person="${staffInstance}">
-			<td><g:render template="/person/approved" model="[person:staffInstance]"/></td>
-			<td><g:render template="/user/accountManage" model="[user:staffInstance.account]"/></td>
-			<td><g:render template="/user/authoritiesManage" model="[user:staffInstance.account]"/></td>
-	</bzu:ifSameDepartment>
-	<bzu:ifNotSameDepartment person="${staffInstance}">
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-	</bzu:ifNotSameDepartment>
-</sec:ifNotGranted>
+			<td><g:render template="/user/authoritiesManage" model="[user:staffInstance.account, allowedRoles:allowedRoles]"/></td>
 		</ui:tr>
 	</g:each>
 	</tbody>
 </ui:table>
-	
+
 </theme:zone>
 <theme:zone name="pagination">
 	<ui:paginate class=" pagination-centered" total="${staffInstanceTotal}" params="${params}"/>

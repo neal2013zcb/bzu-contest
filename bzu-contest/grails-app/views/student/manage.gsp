@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="bzu.Constants"%>
 <html lang="zh-cn">
 <head>
 	<theme:layout name="report"/>
@@ -11,6 +12,8 @@
 <theme:zone name="body">
 
 <ui:displayMessage/>
+
+<g:set var="allowedRoles" value="${Constants.Role.STUDENT_ROLES}"/>
 
 <ui:table>
 	<thead>
@@ -37,28 +40,14 @@
 			<td>${fieldValue(bean: studentInstance, field: "workPhone")}</td>
 			<td>${fieldValue(bean: studentInstance, field: "homePhone")}</td>
 			<td>${fieldValue(bean: studentInstance, field: "email")}</td>
-<sec:ifAnyGranted roles="ROLE_ADMIN">
 			<td><g:render template="/person/approved" model="[person:studentInstance]"/></td>
 			<td><g:render template="/user/accountManage" model="[user:studentInstance.account]"/></td>
-			<td><g:render template="/user/authoritiesManage" model="[user:studentInstance.account]"/></td>
-</sec:ifAnyGranted>
-<sec:ifNotGranted roles="ROLE_ADMIN">
-	<bzu:ifSameDepartment person="${studentInstance}">
-			<td><g:render template="/person/approved" model="[person:studentInstance]"/></td>
-			<td><g:render template="/user/accountManage" model="[user:studentInstance.account]"/></td>
-			<td><g:render template="/user/authoritiesManage" model="[user:studentInstance.account]"/></td>
-	</bzu:ifSameDepartment>
-	<bzu:ifNotSameDepartment person="${studentInstance}">
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-	</bzu:ifNotSameDepartment>
-</sec:ifNotGranted>
+			<td><g:render template="/user/authoritiesManage" model="[user:studentInstance.account, allowedRoles:allowedRoles]"/></td>
 		</ui:tr>
 	</g:each>
 	</tbody>
 </ui:table>
-	
+
 </theme:zone>
 <theme:zone name="pagination">
 	<ui:paginate class=" pagination-centered" total="${studentInstanceTotal}" params="${params}"/>

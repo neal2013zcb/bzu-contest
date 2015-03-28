@@ -1,17 +1,7 @@
-<!-- 权限管理 user -->
-<%@page import="bzu.Constants"%>
+<!-- 权限管理 user allowedRoles -->
 <span id="roles-${user.id}">
 <g:set var="roles" value="${user.authorities*.authority}"/>
-<bzu:ifStaff user="${user}">
-	<g:set var="allRoles" value="${Constants.Role.STAFF_ROLES}"/>
-	<sec:ifNotGranted roles="ROLE_ADMIN">
-		<g:set var="allRoles" value="${allRoles - Constants.Role.HIGH_LEVEL_ROLES}"/>
-	</sec:ifNotGranted>
-</bzu:ifStaff>
-<bzu:ifStudent user="${user}">
-<g:set var="allRoles" value="${Constants.Role.STUDENT_ROLES}"/>
-</bzu:ifStudent>
-<g:each in="${allRoles}">
+<g:each in="${allowedRoles}">
 	<g:set var="hasRole" value="${it in roles}"/>
 <div class="btn-group">
 <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#" title="${g.message(code:it+'.label')}">
