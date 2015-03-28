@@ -101,6 +101,15 @@ grails.plugins.springsecurity.password.bcrypt.logrounds = 7
 grails.plugins.springsecurity.dao.reflectionSaltSourceProperty = 'username'
 grails.plugins.springsecurity.logout.afterLogoutUrl = '/logout/success'
 
+grails.plugins.springsecurity.roleHierarchy = '''
+	ROLE_ADMIN > ROLE_USER
+	ROLE_DEPARTMENT > ROLE_USER
+	ROLE_PROJECT > ROLE_USER
+	ROLE_INSPECTOR > ROLE_USER
+	ROLE_TEACHER > ROLE_USER
+	ROLE_STUDENT > ROLE_USER
+'''
+
 // 界面主题
 plugin.platformUi.theme.default = 'Bootstrap'
 
