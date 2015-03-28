@@ -26,22 +26,26 @@
 		<ui:field label="${userType}.no.label">
 			<ui:fieldInput>
 				<span class="uneditable-input" data-toggle="tooltip" title="身份标识，不可更改">${person.no}</span>
+				<i class="fa fa-lg fa-check-circle text-success"></i>
 			</ui:fieldInput>
 		</ui:field>
 		<ui:field label="${userType}.name.label">
 			<ui:fieldInput>
 				<span class="uneditable-input" data-toggle="tooltip" title="通过审核，不可更改">${person.name}</span>
+				<i class="fa fa-lg fa-check-circle text-success"></i>
 			</ui:fieldInput>
 		</ui:field>
 		<ui:field label="${userType}.gender.label">
 			<ui:fieldInput>
 				<span class="uneditable-input" data-toggle="tooltip" title="通过审核，不可更改"><g:message code="person.gender.${person.gender}"/></span>
+				<i class="fa fa-lg fa-check-circle text-success"></i>
 			</ui:fieldInput>
 		</ui:field>
 <g:if test="${userType=='staff'}">
 		<ui:field label="staff.department.label">
 			<ui:fieldInput>
 				<span class="uneditable-input" data-toggle="tooltip" title="通过审核，不可更改">${person.department}</span>
+				<i class="fa fa-lg fa-check-circle text-success"></i>
 			</ui:fieldInput>
 		</ui:field>
 </g:if>
@@ -49,11 +53,12 @@
 		<ui:field label="student.classGrade.label">
 			<ui:fieldInput>
 				<span class="uneditable-input" data-toggle="tooltip" title="通过审核，不可更改">${person.classGrade}</span>
+				<i class="fa fa-lg fa-check-circle text-success"></i>
 			</ui:fieldInput>
 		</ui:field>
 </g:if>
 	</ui:fieldGroup>
-	<ui:message type="info">您的个人信息已经通过审核。</ui:message>
+	<ui:message type="info"><i class="fa fa-lg fa-check-circle text-success"></i> 您的个人信息已经通过审核，不可更改。如确需更改，请联系本单位管理员。</ui:message>
 </ui:form>
 </g:if>
 <g:else>
@@ -86,6 +91,7 @@
 		</ui:field>
 </g:if>
 	</ui:fieldGroup>
+	<ui:message type="info"><i class="fa fa-lg fa-exclamation-circle text-error"></i> 您的个人信息尚未通过审核，仍可以修改。</ui:message>
 	<ui:actions>
 		<ui:button action="updateProfile" kind="submit" mode="primary" class="span3" text="保存更改"/>
 	</ui:actions>
