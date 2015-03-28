@@ -9,6 +9,28 @@ package bzu
 class Constants {
 	
 	/**
+	 * Role 相关常量
+	 */
+	static interface Role {
+		/** 所有权限 */
+		List ROLES = [
+			'ROLE_USER',		// 注册用户
+			'ROLE_ADMIN',		// 系统管理
+			'ROLE_DEPARTMENT',	// 系院管理
+			'ROLE_PROJECT',		// 项目管理
+			'ROLE_INSPECTOR',	// 竞赛督导
+			'ROLE_TEACHER',		// 教师
+			'ROLE_STUDENT',		// 学生
+		]
+		/** 教师的所有权限 */
+		List STAFF_ROLES = ['ROLE_USER','ROLE_TEACHER','ROLE_PROJECT','ROLE_DEPARTMENT','ROLE_INSPECTOR','ROLE_ADMIN']
+		/** 学生的所有权限 */
+		List STUDENT_ROLES = ['ROLE_USER','ROLE_STUDENT']
+		/** 高级权限 */
+		List HIGH_LEVEL_ROLES = ['ROLE_DEPARTMENT','ROLE_INSPECTOR','ROLE_ADMIN']
+	}
+	
+	/**
 	 * Person 相关常量
 	 */
 	static interface Person {
