@@ -38,30 +38,27 @@ class UserController {
 	@Secured(['ROLE_ADMIN','ROLE_DEPARTMENT'])
 	def addRole(Long id, String roleName) {
 		User user = User.get(id)
+		def allowedRoles = allowedRolesOf(user.person)
+		if(roleName in allowedRoles) {
+			// 分配权限
+			Role role = Role.findByAuthority(roleName)
+			if(! UserRole.findByUserAndRole(user, role)) {
+				UserRole.create(user, role, true)
+				reauthenticateIfMe user.username
+			}
+		}
+		render template:'authoritiesManage', model:[user:user, allowedRoles:allowedRoles]
+	}
+	private List allowedRolesOf(Staff staff) {
 		// 系院管理员不能分配特殊权限
-		if(SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN') ||
-				!(roleName in Constants.Role.HIGH_LEVEL_ROLES)) {
-			// 根据用户身份（学生和教师）和权限确定决定是否更新权限
-			ifRoleRightForPerson(user.person, roleName, {
-				// 分配权限
-				Role role = Role.findByAuthority(roleName)
-				if(! UserRole.findByUserAndRole(user, role)) {
-					UserRole.create(user, role, true)
-					reauthenticateIfMe user.username
-				}
-			})
-		}
-		render template:'authoritiesManage', model:[user:user]
-	}
-	private void ifRoleRightForPerson(Staff staff, String roleName, doWhat) {
-		if(roleName in Constants.Role.STAFF_ROLES) {
-			doWhat()
+		if(SpringSecurityUtils.ifNotGranted('ROLE_ADMIN')) {
+			Constants.Role.STAFF_ROLES - Constants.Role.HIGH_LEVEL_ROLES
+		} else {
+			Constants.Role.STAFF_ROLES
 		}
 	}
-	private void ifRoleRightForPerson(Student student, String roleName, doWhat) {
-		if(roleName in Constants.Role.STUDENT_ROLES) {
-			doWhat()
-		}
+	private List allowedRolesOf(Student student) {
+		Constants.Role.STUDENT_ROLES
 	}
 	private void reauthenticateIfMe(String username) {
 		if(springSecurityService.principal.username == username) {
@@ -71,17 +68,13 @@ class UserController {
 	@Secured(['ROLE_ADMIN','ROLE_DEPARTMENT'])
 	def removeRole(Long id, String roleName) {
 		User user = User.get(id)
-		// 系院管理员不能撤消特殊权限
-		if(SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN') ||
-				!(roleName in Constants.Role.HIGH_LEVEL_ROLES)) {
-			// 根据用户身份（学生和教师）和权限确定决定是否更新权限
-			ifRoleRightForPerson(user.person, roleName, {
-				// 撤消权限
-				Role role = Role.findByAuthority(roleName)
-				UserRole.remove(user, role, true)
-				reauthenticateIfMe user.username
-			})
+		def allowedRoles = allowedRolesOf(user.person)
+		if(roleName in allowedRoles) {
+			// 撤消权限
+			Role role = Role.findByAuthority(roleName)
+			UserRole.remove(user, role, true)
+			reauthenticateIfMe user.username
 		}
-		render template:'authoritiesManage', model:[user:user]
+		render template:'authoritiesManage', model:[user:user, allowedRoles:allowedRoles]
 	}
 }
