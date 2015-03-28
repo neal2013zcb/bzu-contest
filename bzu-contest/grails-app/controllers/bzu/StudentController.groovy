@@ -1,102 +1,32 @@
 package bzu
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured;
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+
+@Secured(['ROLE_ADMIN','ROLE_DEPARTMENT'])
 class StudentController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	static defaultAction = "manage"
+	
+	def userService
+	
+	@Secured(['ROLE_ADMIN','ROLE_DEPARTMENT'])
+	def manage(Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		def query = Student.where {}
+		// 若不是系统管理员，则只列出本单位学生
+		if(SpringSecurityUtils.ifNotGranted('ROLE_ADMIN')) {
+			Department curDepartment = userService.currentDepartment
+			query = query.where { classGrade.specialty.department == curDepartment }
+		}
+		// 搜索条件
+		if(params.q) {
+			def qlike = "%${params.q}%"
+			displayMessage(text:"搜索 “${params.q}” 的结果：", type:'info')
+			query = query.where { name =~ qlike || no =~ qlike }
+		}
 
-    def index() {
-        redirect(action: "list", params: params)
-    }
-
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [studentInstanceList: Student.list(params), studentInstanceTotal: Student.count()]
-    }
-
-    def create() {
-        [studentInstance: new Student(params)]
-    }
-
-    def save() {
-        def studentInstance = new Student(params)
-        if (!studentInstance.save(flush: true)) {
-            render(view: "create", model: [studentInstance: studentInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])
-        redirect(action: "show", id: studentInstance.id)
-    }
-
-    def show(Long id) {
-        def studentInstance = Student.get(id)
-        if (!studentInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [studentInstance: studentInstance]
-    }
-
-    def edit(Long id) {
-        def studentInstance = Student.get(id)
-        if (!studentInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [studentInstance: studentInstance]
-    }
-
-    def update(Long id, Long version) {
-        def studentInstance = Student.get(id)
-        if (!studentInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), id])
-            redirect(action: "list")
-            return
-        }
-
-        if (version != null) {
-            if (studentInstance.version > version) {
-                studentInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'student.label', default: 'Student')] as Object[],
-                          "Another user has updated this Student while you were editing")
-                render(view: "edit", model: [studentInstance: studentInstance])
-                return
-            }
-        }
-
-        studentInstance.properties = params
-
-        if (!studentInstance.save(flush: true)) {
-            render(view: "edit", model: [studentInstance: studentInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])
-        redirect(action: "show", id: studentInstance.id)
-    }
-
-    def delete(Long id) {
-        def studentInstance = Student.get(id)
-        if (!studentInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), id])
-            redirect(action: "list")
-            return
-        }
-
-        try {
-            studentInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'student.label', default: 'Student'), id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'student.label', default: 'Student'), id])
-            redirect(action: "show", id: id)
-        }
-    }
+		[studentInstanceList: query.list(params), studentInstanceTotal: query.count()]
+	}
 }
