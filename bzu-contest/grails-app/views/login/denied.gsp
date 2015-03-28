@@ -12,10 +12,11 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<p class="text-error lead"><span class="fa fa-ban fa-4x"></span> 对不起，您没有足够的权限执行该操作。</p>
-			<p:displayMessage/>
+			<ui:displayMessage/>
 			<blockquote>
 				<p class="text-warning lead"><span class="fa fa-hand-o-right fa-lg"></span> 需要特定的权限才能执行，但您暂不具备该权限。</p>
 			</blockquote>
+			<a class="btn btn-large btn-primary" href="${request.getHeader('referer')}">返回</a>
 		</div>
 	</div>
 </div>
