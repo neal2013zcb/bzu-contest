@@ -1,24 +1,45 @@
 package bzu
 
+import grails.plugins.springsecurity.Secured;
+
 import org.springframework.dao.DataIntegrityViolationException
 
 class ClassGradeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	
+	def beforeInterceptor = [action: this.&checkDepartment, except: ['index','list','show','create']]
+	
+	def userService
+	
+	private checkDepartment() {
+		def myDepartmentId = userService.currentDepartment.id
+		def sepId = params.long('specialty.id', 0)
+		def specialty = sepId ? Specialty.get(sepId) : ClassGrade.get(params.long('id'))?.specialty
+		if(myDepartmentId != specialty.department.id) {
+			displayFlashMessage text:'对不起，您不能修改其他系院的信息', type:'error'
+			redirect controller:'errors', action:'forbidden'
+			return false
+		}
+	}
 
+	@Secured(['ROLE_USER'])
     def index() {
         redirect(action: "list", params: params)
     }
 
+	@Secured(['ROLE_USER'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [classGradeInstanceList: ClassGrade.list(params), classGradeInstanceTotal: ClassGrade.count()]
     }
 
+	@Secured(['ROLE_DEPARTMENT'])
     def create() {
         [classGradeInstance: new ClassGrade(params)]
     }
 
+	@Secured(['ROLE_DEPARTMENT'])
     def save() {
         def classGradeInstance = new ClassGrade(params)
         if (!classGradeInstance.save(flush: true)) {
@@ -30,6 +51,7 @@ class ClassGradeController {
         redirect(action: "show", id: classGradeInstance.id)
     }
 
+	@Secured(['ROLE_USER'])
     def show(Long id) {
         def classGradeInstance = ClassGrade.get(id)
         if (!classGradeInstance) {
@@ -41,6 +63,7 @@ class ClassGradeController {
         [classGradeInstance: classGradeInstance]
     }
 
+	@Secured(['ROLE_DEPARTMENT'])
     def edit(Long id) {
         def classGradeInstance = ClassGrade.get(id)
         if (!classGradeInstance) {
@@ -52,6 +75,7 @@ class ClassGradeController {
         [classGradeInstance: classGradeInstance]
     }
 
+	@Secured(['ROLE_DEPARTMENT'])
     def update(Long id, Long version) {
         def classGradeInstance = ClassGrade.get(id)
         if (!classGradeInstance) {
@@ -81,6 +105,7 @@ class ClassGradeController {
         redirect(action: "show", id: classGradeInstance.id)
     }
 
+	@Secured(['ROLE_DEPARTMENT'])
     def delete(Long id) {
         def classGradeInstance = ClassGrade.get(id)
         if (!classGradeInstance) {
