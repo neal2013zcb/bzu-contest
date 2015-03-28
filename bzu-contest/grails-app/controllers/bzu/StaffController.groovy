@@ -26,7 +26,9 @@ class StaffController {
 			displayMessage(text:"搜索 “${params.q}” 的结果：", type:'info')
 			query = query.where { name =~ qlike || no =~ qlike }
 		}
-
+		
+		cache validFor: 5
+		
 		[staffInstanceList: query.list(params), staffInstanceTotal: query.count()]
 	}
 	

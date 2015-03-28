@@ -26,7 +26,9 @@ class StudentController {
 			displayMessage(text:"搜索 “${params.q}” 的结果：", type:'info')
 			query = query.where { name =~ qlike || no =~ qlike }
 		}
-
+		
+		cache validFor: 5
+		
 		[studentInstanceList: query.list(params), studentInstanceTotal: query.count()]
 	}
 }
