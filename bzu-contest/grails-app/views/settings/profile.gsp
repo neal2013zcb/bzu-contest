@@ -91,7 +91,7 @@
 		</ui:field>
 </g:if>
 	</ui:fieldGroup>
-	<ui:message type="info"><i class="fa fa-lg fa-exclamation-circle text-error"></i> 您的个人信息尚未通过审核，仍可以修改。</ui:message>
+	<ui:message type="warning"><i class="fa fa-lg fa-exclamation-circle text-error"></i> 您的个人信息尚未通过审核，仍可以修改，但某些系统管理功能可能会受到限制。请耐心等待或主动联系本单位管理员审核您的个人信息。</ui:message>
 	<ui:actions>
 		<ui:button action="updateProfile" kind="submit" mode="primary" class="span3" text="保存更改"/>
 	</ui:actions>
