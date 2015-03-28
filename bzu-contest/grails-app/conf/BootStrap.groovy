@@ -23,6 +23,12 @@ class BootStrap {
 		if(Environment.current==Environment.DEVELOPMENT) {
 			// 开发状态下添加测试数据
 			println "==== DEVELOPMENT MODE ===="
+			// 创建默认系统管理员
+			Department d0 = new Department(no:'--', name:'----', shortName:'----', category:bzu.Constants.Department.Category.UNKNOWN).save()
+			Staff s0 = new Staff(no:'administrator', name:'Administrator', department:d0, approved:true,
+					account: new User(username:'administrator', password:'1qaz2wsx', enabled:true)).save()
+			UserRole.create(s0.account, Role.findByAuthority('ROLE_ADMIN'))
+					
 			// Department
 			Department d1 = new Department(no:'11', name:'信息工程系', shortName:'信息', category:bzu.Constants.Department.Category.SCHOOL)
 			Department d2 = new Department(no:'02', name:'中文系', shortName:'中文', category:bzu.Constants.Department.Category.SCHOOL)
