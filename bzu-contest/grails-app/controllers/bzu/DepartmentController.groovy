@@ -38,9 +38,6 @@ class DepartmentController {
 
 	@Secured(['ROLE_USER'])
     def show(Long id) {
- 		
-		println principal.person
-		
        def departmentInstance = Department.get(id)
         if (!departmentInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'department.label', default: 'Department'), id])
