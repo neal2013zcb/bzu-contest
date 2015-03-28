@@ -68,4 +68,29 @@ class PersonTagLib {
 		}
 	}
 
+	/**
+	 * 指定用户与当前用户同属一个单位
+	 * 
+     * @attr person 个人信息对象
+     * @attr user 登录账号
+	 */
+	def ifSameDepartment = { attrs, body ->
+		def person = retrievePerson(attrs)
+		if(person.department.id == userService.currentDepartment.id) {
+			out << body()
+		}
+	}
+	
+	/**
+	 * 指定用户与当前用户不属一个单位
+	 * 
+     * @attr person 个人信息对象
+     * @attr user 登录账号
+	 */
+	def ifNotSameDepartment = { attrs, body ->
+		def person = retrievePerson(attrs)
+		if(person.department.id != userService.currentDepartment.id) {
+			out << body()
+		}
+	}
 }
