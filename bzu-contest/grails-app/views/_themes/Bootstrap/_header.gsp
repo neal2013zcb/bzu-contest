@@ -6,9 +6,21 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
             <ui:logo/>
-            <theme:layoutZone name="navigation"/>
-            <theme:layoutZone name="user-navigation"/>
+            <div class="nav-collapse collapse">
+	            <theme:layoutZone name="navigation"/>
+	            <div class="pull-right">
+		            <theme:layoutZone name="admin-navigation"/>
+					<theme:layoutZone name="navigation-search"/>
+		            <theme:layoutZone name="user-navigation"/>
+		            <theme:layoutZone name="help-navigation"/>
+	            </div>
+            </div>
         </div>
     </div>
 </div>
