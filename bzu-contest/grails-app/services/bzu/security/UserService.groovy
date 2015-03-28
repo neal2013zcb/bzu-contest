@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import bzu.Department;
 import bzu.Person;
 
 class UserService {
@@ -24,6 +25,11 @@ class UserService {
 	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 	Person getCurrentPerson() {
 		currentUser?.person
+	}
+	
+	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+	Department getCurrentDepartment() {
+		currentPerson?.department
 	}
 	
 	// 通过门户网站验证用户名和密码
