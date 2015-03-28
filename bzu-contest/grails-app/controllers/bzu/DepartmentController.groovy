@@ -1,24 +1,30 @@
 package bzu
 
+import grails.plugins.springsecurity.Secured;
+
 import org.springframework.dao.DataIntegrityViolationException
 
 class DepartmentController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+	
+	@Secured(['ROLE_USER'])
     def index() {
         redirect(action: "list", params: params)
     }
 
+	@Secured(['ROLE_USER'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [departmentInstanceList: Department.list(params), departmentInstanceTotal: Department.count()]
     }
 
+	@Secured(['ROLE_ADMIN'])
     def create() {
         [departmentInstance: new Department(params)]
     }
 
+	@Secured(['ROLE_ADMIN'])
     def save() {
         def departmentInstance = new Department(params)
         if (!departmentInstance.save(flush: true)) {
@@ -30,8 +36,12 @@ class DepartmentController {
         redirect(action: "show", id: departmentInstance.id)
     }
 
+	@Secured(['ROLE_USER'])
     def show(Long id) {
-        def departmentInstance = Department.get(id)
+ 		
+		println principal.person
+		
+       def departmentInstance = Department.get(id)
         if (!departmentInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'department.label', default: 'Department'), id])
             redirect(action: "list")
@@ -41,6 +51,7 @@ class DepartmentController {
         [departmentInstance: departmentInstance]
     }
 
+	@Secured(['ROLE_ADMIN'])
     def edit(Long id) {
         def departmentInstance = Department.get(id)
         if (!departmentInstance) {
@@ -52,6 +63,7 @@ class DepartmentController {
         [departmentInstance: departmentInstance]
     }
 
+	@Secured(['ROLE_ADMIN'])
     def update(Long id, Long version) {
         def departmentInstance = Department.get(id)
         if (!departmentInstance) {
@@ -81,6 +93,7 @@ class DepartmentController {
         redirect(action: "show", id: departmentInstance.id)
     }
 
+	@Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         def departmentInstance = Department.get(id)
         if (!departmentInstance) {
