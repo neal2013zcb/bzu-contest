@@ -28,6 +28,10 @@ class Student extends Person {
 	
 	static belongsTo = [classGrade:ClassGrade]
 
+	static mapping = {
+		sort 'no'
+	}
+	
     static constraints = {
 		classGrade nullable:false
     }

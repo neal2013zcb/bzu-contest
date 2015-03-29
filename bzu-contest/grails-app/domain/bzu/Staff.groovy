@@ -14,6 +14,10 @@ class Staff extends Person {
 	
 	static belongsTo = [department:Department]
 
+	static mapping = {
+		sort 'no'
+	}
+	
     static constraints = {
 		department nullable:false
     }
