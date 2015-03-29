@@ -71,8 +71,8 @@ class Contest {
 		sponsor nullable:false, blank:false
 		level nullable:false, blank:false, maxSize:1, inList:Constants.Contest.Level.VALUES
 		intro nullable:false, blank:false
-		website nullable:true, blank:true
-		logo nullable:true, blank:true
+		website nullable:true, blank:true, url:true
+		logo nullable:true, blank:true, url:true
 		submitter nullable:false // MUST be current user
 		principal nullable:false // current user as default
 		approved nullable:false
