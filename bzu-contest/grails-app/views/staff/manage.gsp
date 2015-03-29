@@ -34,8 +34,9 @@
 		</ui:tr>
 	</thead>
 	<tbody>
+	<g:set var="myno" value="${bzu.user(property:'no')}"/>
 	<g:each in="${staffInstanceList}" status="i" var="staffInstance">
-		<ui:tr class="tr-hover">
+		<ui:tr class="tr-hover ${staffInstance.no==myno ? 'warning text-success' : ''}">
 			<td>${fieldValue(bean: staffInstance, field: "no")}</td>
 			<td>${fieldValue(bean: staffInstance, field: "name")}</td>
 			<td>${fieldValue(bean: staffInstance, field: "gender")}</td>
