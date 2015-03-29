@@ -187,8 +187,8 @@ class UserService {
 	boolean doApprove(Person person) {
 		doIfCanManage(person, {
 			person.approved = true
-			person.dateOfApproval = new Date()
-			person.verifier = currentPerson
+			person.dateApproved = new Date()
+			person.approvedBy = currentPerson
 			person.save()
 		})
 	}
@@ -203,8 +203,8 @@ class UserService {
 	boolean undoApprove(Person person) {
 		doIfCanManage(person, {
 			person.approved = false
-			person.dateOfApproval = null
-			person.verifier = null
+			person.dateApproved = null
+			person.approvedBy = null
 			person.save()
 		})
 	}

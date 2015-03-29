@@ -3,10 +3,10 @@
 <div class="btn-group">
 	<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
 <g:if test="${person.approved}">
-	<i class="fa fa-lg fa-check-circle text-success"></i> 已审核
+	<span title="${person.approvedBy?.name} 审核于 ${g.formatDate(date:person?.dateApproved, format:'yyyy-MM-dd')}"><i class="fa fa-lg fa-check-circle text-success"></i> 已审核</span>
 </g:if>
 <g:else>
-	<i class="fa fa-lg fa-exclamation-circle text-error"></i> 未审核
+	<span><i class="fa fa-lg fa-exclamation-circle text-error"></i> 未审核</span>
 </g:else>
 	</a>
 	<ul class="dropdown-menu">

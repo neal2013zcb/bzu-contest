@@ -40,11 +40,11 @@ class Person {
 	/**
 	 * 审核人
 	 */
-	Person verifier = null
+	Person approvedBy = null
 	/**
 	 * 审核时间
 	 */
-	Date dateOfApproval = null
+	Date dateApproved = null
 	
 	/**
 	 * 登录账号
@@ -62,8 +62,8 @@ class Person {
 		email nullable:true, blank:true, maxSize:50, email:true
 		account nullable:true
 		approved nullable:false
-		verifier nullable:true
-		dateOfApproval nullable:true
+		approvedBy nullable:true
+		dateApproved nullable:true
     }
 	
 	static mapping = {

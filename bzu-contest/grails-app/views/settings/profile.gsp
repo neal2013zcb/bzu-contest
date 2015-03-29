@@ -58,7 +58,7 @@
 		</ui:field>
 </g:if>
 	</ui:fieldGroup>
-	<ui:message type="info"><i class="fa fa-lg fa-check-circle text-success"></i> 您的个人信息已经通过审核，不可更改。如确需更改，请联系本单位管理员。</ui:message>
+	<ui:message type="info"><i class="fa fa-lg fa-check-circle text-success"></i> 您的个人信息已由 ${person.approvedBy?.name} 于 ${g.formatDate(date:person?.dateApproved, format:'yyyy-MM-dd')} 通过审核，不可更改。如确需更改，请联系本单位管理员。</ui:message>
 </ui:form>
 </g:if>
 <g:else>
