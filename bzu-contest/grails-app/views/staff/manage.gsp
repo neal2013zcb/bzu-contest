@@ -28,6 +28,7 @@
 			<ui:th><g:message code="staff.workPhone.label"/></ui:th>
 			<ui:th><g:message code="staff.homePhone.label"/></ui:th>
 			<ui:th><g:message code="staff.email.label"/></ui:th>
+			<ui:th><g:message code="staff.officeLocation.label"/></ui:th>
 			<ui:th>信息审核</ui:th>
 			<ui:th>账号管理</ui:th>
 			<ui:th>权限管理</ui:th>
@@ -44,6 +45,7 @@
 			<td>${fieldValue(bean: staffInstance, field: "workPhone")}</td>
 			<td>${fieldValue(bean: staffInstance, field: "homePhone")}</td>
 			<td>${fieldValue(bean: staffInstance, field: "email")}</td>
+			<td>${fieldValue(bean: staffInstance, field: "officeLocation")}</td>
 			<td><g:render template="/person/approved" model="[person:staffInstance]"/></td>
 			<td><g:render template="/user/accountManage" model="[user:staffInstance.account]"/></td>
 			<td><g:render template="/user/authoritiesManage" model="[user:staffInstance.account, allowedRoles:allowedRoles]"/></td>

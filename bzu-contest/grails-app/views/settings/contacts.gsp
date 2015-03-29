@@ -35,6 +35,13 @@
 				<g:field type="email" name="email" maxlength="50" value="${person?.email}"/>
 			</ui:fieldInput>
 		</ui:field>
+<bzu:ifStaff>
+		<ui:field label="staff.officeLocation.label">
+			<ui:fieldInput>
+				<g:field type="text" name="officeLocation" maxlength="50" value="${person?.officeLocation}"/>
+			</ui:fieldInput>
+		</ui:field>
+</bzu:ifStaff>
 	</ui:fieldGroup>
 	<ui:actions>
 		<ui:button action="updateContacts" kind="submit" mode="primary" class="span3" text="保存更改"/>

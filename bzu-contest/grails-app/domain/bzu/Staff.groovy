@@ -11,6 +11,10 @@ class Staff extends Person {
 	 * 所在单位
 	 */
 	Department department
+	/**
+	 * 办公地点
+	 */
+	String officeLocation
 	
 	static belongsTo = [department:Department]
 
@@ -20,5 +24,6 @@ class Staff extends Person {
 	
     static constraints = {
 		department nullable:false
+		officeLocation nullable:true, blank:true, maxSize:50
     }
 }
