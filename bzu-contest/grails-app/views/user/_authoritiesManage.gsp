@@ -5,7 +5,7 @@
 	<g:set var="hasRole" value="${it in roles}"/>
 <div class="btn-group">
 <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#" title="${g.message(code:it+'.label')}">
-	<i class="fa fa-lg ${hasRole ? 'fa-check-circle text-success' : 'fa-ban text-error'}"></i> ${it[5]}
+	<i class="fa fa-lg ${hasRole ? 'fa-check-circle text-success' : 'fa-ban text-error'}"></i> <g:message code="${it}.label"/>
 </a>
 <ul class="dropdown-menu">
 <g:if test="${hasRole}">

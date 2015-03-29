@@ -22,10 +22,7 @@
 			<g:sortableColumn property="name" params="${params}" title="${message(code: 'student.name.label', default: 'Name')}" />
 			<g:sortableColumn property="gender" params="${params}" title="${message(code: 'student.gender.label', default: 'Gender')}" />
 			<g:sortableColumn property="classGrade" params="${params}" title="${message(code: 'student.classGrade.label', default: 'Class Grade')}" />
-			<ui:th><g:message code="student.workPhone.label"/></ui:th>
-			<ui:th><g:message code="student.homePhone.label"/></ui:th>
-			<ui:th><g:message code="student.email.label"/></ui:th>
-			<ui:th>信息审核</ui:th>
+			<g:sortableColumn property="approved" params="${params}" title="${message(code: 'student.approved.label', default: 'Approved')}" />
 			<ui:th>账号管理</ui:th>
 			<ui:th>权限管理</ui:th>
 		</ui:tr>
@@ -37,9 +34,6 @@
 			<td>${fieldValue(bean: studentInstance, field: "name")}</td>
 			<td>${fieldValue(bean: studentInstance, field: "gender")}</td>
 			<td>${fieldValue(bean: studentInstance, field: "department")}</td>
-			<td>${fieldValue(bean: studentInstance, field: "workPhone")}</td>
-			<td>${fieldValue(bean: studentInstance, field: "homePhone")}</td>
-			<td>${fieldValue(bean: studentInstance, field: "email")}</td>
 			<td><g:render template="/person/approved" model="[person:studentInstance]"/></td>
 			<td><g:render template="/user/accountManage" model="[user:studentInstance.account]"/></td>
 			<td><g:render template="/user/authoritiesManage" model="[user:studentInstance.account, allowedRoles:allowedRoles]"/></td>
