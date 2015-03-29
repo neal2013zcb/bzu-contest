@@ -17,7 +17,7 @@ class Contest {
 	/**
 	 * 主办单位
 	 */
-	String sponsor
+	String sponsors
 	/**
 	 * 赛事等级（A—国际竞赛（决赛）类；B—全国竞赛（决赛）类；C—省部级竞赛（决赛）类；D—其他类）
 	 */
@@ -68,7 +68,7 @@ class Contest {
 
     static constraints = {
 		name nullable:false, blank:false, unique:true
-		sponsor nullable:false, blank:false
+		sponsors nullable:false, blank:false
 		level nullable:false, blank:false, maxSize:1, inList:Constants.Contest.Level.VALUES
 		intro nullable:false, blank:false
 		website nullable:true, blank:true, url:true
