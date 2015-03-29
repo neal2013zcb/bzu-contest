@@ -89,5 +89,25 @@ class Constants {
 		}
 	}
 	
-	
+	/**
+	 * Contest 相关的常量
+	 */
+	static interface Contest {
+		/**
+		 * 赛事等级
+		 */
+		static interface Level {
+			/** 国际竞赛（决赛）类 = 'A' */
+			String A = 'A'
+			/** 全国竞赛（决赛）类 = 'B' */
+			String B = 'B'
+			/** 省部级竞赛（决赛）类 = 'C' */
+			String C = 'C'
+			/** 其他类 = 'D' */
+			String D = 'D'
+			
+			/** 所有赛事等级 */
+			List VALUES = [A, B, C, D]
+		}
+	}
 }
