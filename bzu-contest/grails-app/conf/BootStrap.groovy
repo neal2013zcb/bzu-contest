@@ -1,6 +1,7 @@
 import grails.util.Environment;
 import bzu.ClassGrade;
 import bzu.Department;
+import bzu.Person;
 import bzu.Specialty;
 import bzu.Staff;
 import bzu.Student;
@@ -28,7 +29,7 @@ class BootStrap {
 			Staff s0 = new Staff(no:'administrator', name:'Administrator', department:d0, approved:true,
 					account: new User(username:'administrator', password:'1qaz2wsx', enabled:true)).save()
 			UserRole.create(s0.account, Role.findByAuthority('ROLE_ADMIN'))
-					
+			
 			// Department
 			Department d1 = new Department(no:'11', name:'信息工程系', shortName:'信息', category:bzu.Constants.Department.Category.SCHOOL)
 			Department d2 = new Department(no:'02', name:'中文系', shortName:'中文', category:bzu.Constants.Department.Category.SCHOOL)
@@ -69,7 +70,10 @@ class BootStrap {
 			new Student(no:no, name:name, classGrade:c7, account:new User(username:no, password:no, enabled:true)).save()
 			}
 			
-			UserRole.create(User.findByUsername('1111'), Role.findByAuthority('ROLE_ADMIN'))
+			// 管理员
+			Staff a = Staff.findByNo('1111')
+			a.approved = true
+			UserRole.create(a.account, Role.findByAuthority('ROLE_ADMIN'))
 		}
     }
     def destroy = {
