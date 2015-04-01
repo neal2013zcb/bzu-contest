@@ -74,6 +74,7 @@ class BootStrap {
 			Staff a = Staff.findByNo('1111')
 			a.approved = true
 			UserRole.create(a.account, Role.findByAuthority('ROLE_ADMIN'))
+			UserRole.create(a.account, Role.findByAuthority('ROLE_DEPARTMENT'))
 		}
     }
     def destroy = {
