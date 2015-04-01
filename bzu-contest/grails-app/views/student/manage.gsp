@@ -33,7 +33,7 @@
 			<td>${fieldValue(bean: studentInstance, field: "no")}</td>
 			<td>${fieldValue(bean: studentInstance, field: "name")}</td>
 			<td>${fieldValue(bean: studentInstance, field: "gender")}</td>
-			<td>${fieldValue(bean: studentInstance, field: "department")}</td>
+			<td>${fieldValue(bean: studentInstance, field: "classGrade")}</td>
 			<td><g:render template="/person/approved" model="[person:studentInstance]"/></td>
 			<td><g:render template="/user/accountManage" model="[user:studentInstance.account]"/></td>
 			<td><g:render template="/user/authoritiesManage" model="[user:studentInstance.account, allowedRoles:allowedRoles]"/></td>
