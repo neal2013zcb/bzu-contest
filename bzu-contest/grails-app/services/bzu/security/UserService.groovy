@@ -125,6 +125,14 @@ class UserService {
 	boolean hasProjectRole() {
 		SpringSecurityUtils.ifAnyGranted("ROLE_PROJECT")
 	}
+	
+	/**
+	 * 判断当前用户是否具有用户权限
+	 * @return <code>true</code> 若有；<code>false</code> 否则
+	 */
+	boolean hasUserRole() {
+		SpringSecurityUtils.ifAnyGranted("ROLE_USER")
+	}
 
 	/**
 	 * 判断当前用户能否对指定用户账号执行管理操作（如：激活，分配权限等）
