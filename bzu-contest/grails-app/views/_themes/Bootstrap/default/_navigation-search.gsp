@@ -1,5 +1,5 @@
 <!-- 搜索栏 -->
-<g:set var="searchableActions" value="${['staff.manage','student.manage']}"/>
+<g:set var="searchableActions" value="${['staff.manage','student.manage','contest.list']}"/>
 <g:set var="searchAction">${controllerName}.${actionName}</g:set>
 <g:if test="${searchAction in searchableActions}">
 	<!-- 搜索数据 -->

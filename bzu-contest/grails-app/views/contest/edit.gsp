@@ -1,43 +1,33 @@
-<%@ page import="bzu.contest.Contest" %>
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'contest.label', default: 'Contest')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#edit-contest" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="edit-contest" class="content scaffold-edit" role="main">
-			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${contestInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${contestInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
-			<g:form method="post" >
-				<g:hiddenField name="id" value="${contestInstance?.id}" />
-				<g:hiddenField name="version" value="${contestInstance?.version}" />
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
-		</div>
-	</body>
+<html lang="zh-cn">
+<head>
+	<theme:layout name="dialog"/>
+	<g:set var="entityName" value="${message(code: 'contest.label', default: 'Contest')}" />
+	<title><g:message code="default.edit.label" args="[entityName]" /></title>
+</head>
+<body>
+<theme:zone name="body">
+
+<ui:displayMessage/>
+
+<g:hasErrors bean="${contestInstance}">
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<g:renderErrors bean="${contestInstance}"/>
+</div>
+</g:hasErrors>
+
+	<ui:form>
+		<g:hiddenField name="id" value="${contestInstance?.id}" />
+		<g:hiddenField name="version" value="${contestInstance?.version}" />
+		<ui:fieldGroup>
+			<g:render template="form"/>
+		</ui:fieldGroup>
+		<ui:actions>
+			<g:actionSubmit class="btn btn-large btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+			<g:actionSubmit class="btn btn-large btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+		</ui:actions>
+	</ui:form>
+</theme:zone>
+</body>
 </html>
