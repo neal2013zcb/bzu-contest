@@ -10,6 +10,13 @@
 </theme:zone>
 
 <theme:zone name="secondary-navigation">
+<sec:ifAnyGranted roles="ROLE_PROJECT">
+<ul class="nav nav-pills">
+  <li>
+  	<g:link action="create">新建赛事</g:link>
+  </li>
+</ul>
+</sec:ifAnyGranted>
 </theme:zone>
 
 <theme:zone name="body">
