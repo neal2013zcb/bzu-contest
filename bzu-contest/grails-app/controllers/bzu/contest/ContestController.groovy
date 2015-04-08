@@ -153,7 +153,7 @@ class ContestController {
 		def contestInstance = Contest.get(id)
 		if (! checkFound(contestInstance)) return
 		if(! contestService.doApprove(contestInstance)) {
-			displayFlashMessage text:"审核赛事失败", type:'info'
+			displayFlashMessage text:"审核赛事失败", type:'error'
 		} else {
 			displayFlashMessage text:"该赛事成功通过审核", type:'info'
 		}
@@ -164,10 +164,10 @@ class ContestController {
 	def undoApprove(Long id) {
 		def contestInstance = Contest.get(id)
 		if (! checkFound(contestInstance)) return
-		if(! contestService.doApprove(contestInstance)) {
-			displayFlashMessage text:"撤消审核失败", type:'info'
+		if(! contestService.undoApprove(contestInstance)) {
+			displayFlashMessage text:"撤消审核失败", type:'error'
 		} else {
-			displayFlashMessage text:"该赛事成功通过审核", type:'info'
+			displayFlashMessage text:"该赛事成功取消审核", type:'info'
 		}
 		redirect action:'show', id:id
 	}
