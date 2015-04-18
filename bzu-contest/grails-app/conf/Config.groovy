@@ -151,3 +151,63 @@ grails.plugins.springsecurity.providerNames = [
 	'daoAndWebPortalAuthenticationProvider',  // dao and web auth
 	'anonymousAuthenticationProvider',
 	'rememberMeAuthenticationProvider']
+
+// 上传文件的设置
+fileuploader {
+	// 默认设置
+	//   base : REQUIRED, 上传文件的根目录
+	//   maxSize : REQUIRED, 允许上传文件大小的上限
+	//   allowedExtensions : REQUIRED, 允许的文件类型，如 [doc,docx,xls,xlsx,pdf,zip,rar,jpg,jpeg,png]
+	//   path : 路径，允许用闭包定义子路径规则，默认为领域类名
+	base = "${userHome}/upload/${appName}/"
+	maxSize = 10 << 20  // 10MB
+	allowedExtensions = ['doc','docx','xls','xlsx','pdf','zip','rar','jpg','jpeg','png']
+	path = { obj->
+		obj.domainClass.logicalPropertyName
+	}
+	
+	// 常用设置
+	doc {
+		allowedExtensions = ['doc','docx','xls','xlsx','pdf']
+	}
+	image {
+		allowedExtensions = ['jpg','jpeg','png']
+	}
+	zip {
+		allowedExtensions = ['zip','rar']
+	}
+	
+	// 具体领域类属性的设置
+	//   base : 上传文件的根目录
+	//   maxSize : 允许上传文件大小的上限
+	//   allowedExtensions : 允许的文件类型
+	//   path : 子路径，允许用闭包定义子路径规则
+	//   name : 命名，允许用闭包定义命名规则
+	//   ref : 引用其他定义
+
+	domain {
+		property {
+			// ... configurations
+		}
+	}
+	
+	book {
+		path = { obj->
+			"${obj.category}/${obj.id}/"
+		}
+		cover {
+			ref = "image"
+			maxSize = 4 << 20
+			name = "cover"
+		}
+		photos {
+			ref = "doc"
+		}
+		reviews {
+			ref = "zip"
+			maxSize = 4 << 20
+		}
+	}
+
+}
+
