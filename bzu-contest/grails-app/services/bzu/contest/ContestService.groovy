@@ -30,8 +30,7 @@ class ContestService {
 	 * @return
 	 */
 	@Secured(['ROLE_PROJECT'])
-	Contest save(params) {
-		def contest = new Contest(params)
+	Contest save(Contest contest) {
 		contest.submitter = userService.currentPerson
 		clearApprove(contest)  // 新建赛事处于未审核状态
 		contest.save()
@@ -95,7 +94,7 @@ class ContestService {
 	 * @return
 	 */
 	boolean isPrincipalOf(Contest contest) {
-		contest.principal.id == userService.currentPerson.id
+		userService.isPrincipalOf(contest)
 	}
 	
 	/**

@@ -96,14 +96,14 @@ class PersonTagLib {
 	
 	def ifPrincipal = { attrs, body ->
 		def target = attrs.remove('target')
-		if(target?.principal?.id == userService.currentPerson.id) {
+		if(userService.isPrincipalOf(target)) {
 			out << body()
 		}
 	}
 	
 	def ifNotPrincipal = { attrs, body ->
 		def target = attrs.remove('target')
-		if(target?.principal?.id == userService.currentPerson.id) {
+		if(! userService.isPrincipalOf(target)) {
 			out << body()
 		}
 	}
