@@ -110,4 +110,24 @@ class Constants {
 			List VALUES = [A, B, C, D]
 		}
 	}
+	
+	/**
+	 * ProjectApplication 相关的常量
+	 */
+	static interface ProjectApplication {
+		/**
+		 * 竞赛项目申请状态
+		 */
+		static interface Status {
+			/** 待审批 = '0' */
+			String TBD = '0'
+			/** 已立项 = '1' */
+			String APPROVED = '1'
+			/** 未通过 = '2' */
+			String FAILED = '2'
+			
+			/** 所有申请状态 */
+			List VALUES = [TBD, APPROVED, FAILED]
+		}
+	}
 }
