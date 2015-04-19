@@ -47,8 +47,8 @@ class ContestController {
 
 	@Secured(['ROLE_PROJECT'])
     def save() {
-        def contestInstance = contestService.save(params)
-        if (! contestInstance) {
+		def contestInstance = new Contest(params)
+        if (! contestService.save(contestInstance)) {
             render(view: "create", model: [contestInstance: contestInstance])
             return
         }
