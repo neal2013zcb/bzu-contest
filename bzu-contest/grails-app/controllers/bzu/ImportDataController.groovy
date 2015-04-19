@@ -14,7 +14,7 @@ import grails.plugins.springsecurity.Secured;
  * @author zhbo
  *
  */
-//@Secured(['ROLE_ADMIN'])
+@Secured(['ROLE_ADMIN'])
 class ImportDataController {
 	
 	static allowedMethods = [importDepartment: "POST", importSpecialty: "POST",
