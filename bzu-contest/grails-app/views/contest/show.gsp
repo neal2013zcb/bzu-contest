@@ -72,6 +72,7 @@
 	<bzu:ifPrincipal target="${contestInstance}">
 		<g:link action="edit" id="${contestInstance.id}" class="btn btn-warning">编辑</g:link>
 	</bzu:ifPrincipal>
+	<g:link action="apply" id="${contestInstance.id}" class="btn btn-primary">申请项目</g:link>
 </sec:ifAnyGranted>
 <sec:ifAnyGranted roles="ROLE_ADMIN">
 	<g:if test="${contestInstance.approved}">

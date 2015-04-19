@@ -13,6 +13,7 @@ class ContestController {
 			doApprove:'POST', undoApprove:'POST']
 	
 	def contestService
+	def projectApplicationService
 
 	@Secured(['ROLE_USER'])
     def index(Integer max) {
@@ -140,7 +141,7 @@ class ContestController {
 	
 	private boolean checkFound(Contest contestInstance) {
 		if (!contestInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'contest.label', default: 'Contest'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'contest.label', default: 'Contest'), contestInstance.id])
 			displayFlashMessage text:flash.message, type:'error'
 			redirect(action: "list")
 			return false
@@ -170,5 +171,18 @@ class ContestController {
 			displayFlashMessage text:"该赛事成功取消审核", type:'info'
 		}
 		redirect action:'show', id:id
+	}
+	
+	// 申请竞赛项目
+	@Secured(['ROLE_PROJECT'])
+	def apply(Long id) {
+		def contestInstance = Contest.get(id)
+		if (! checkFound(contestInstance)) return
+		if(! contestInstance.approved) {
+			displayFlashMessage text:'该赛事尚未审核，不能申请竞赛项目。', type:'error'
+			redirect action:'show', id:id
+			return
+		}
+		redirect controller:'projectApplication', action:'create', params:['contest.id':id]
 	}
 }
