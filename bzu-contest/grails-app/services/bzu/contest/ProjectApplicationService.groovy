@@ -1,5 +1,8 @@
 package bzu.contest
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+
+import grails.gorm.DetachedCriteria;
 import grails.plugins.springsecurity.Secured;
 import bzu.Constants;
 import bzu.security.UserService;
@@ -49,6 +52,10 @@ class ProjectApplicationService {
 		projectApp.submitter = currentPerson
 		// 负责人默认为当前用户
 		projectApp.principal = currentPerson
+		// 依托单位为负责人单位
+		projectApp.department = currentPerson.department
+		// 竞赛年度为当前年份
+		projectApp.year = Calendar.instance.get(Calendar.YEAR)
 		// 当前状态为待审批
 		projectApp.status = Constants.ProjectApplication.Status.TBD
 		// 审批情况为空
@@ -71,6 +78,52 @@ class ProjectApplicationService {
 		initNew(projectApp)
 		// 保存对象
 		return projectApp.save()
+	}
+
+	/**
+	 * 根据当前用户权限等情况，返回竞赛项目申请列表。
+	 * <ul>
+	 *   <li>系统管理员：可以查看所有竞赛项目申请</li>
+	 *   <li>项目管理员：可以查看本人负责的竞赛项目申请</li>
+	 *   <li>系院管理员：可以查看本单位的竞赛项目申请</li>
+	 *   <li>其他用户：不能查看任何竞赛项目申请</li>
+	 * </ul>
+	 * @return 当前用户可见的竞赛项目申请列表
+	 */
+	DetachedCriteria<ProjectApplication> listForCurrentUser() {
+		if(SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")) {
+			return ProjectApplication.where {}
+		} else if(SpringSecurityUtils.ifAnyGranted("ROLE_PROJECT")) {
+			return ProjectApplication.where { principal.id==userService.currentPerson.id }
+		} else if(SpringSecurityUtils.ifAnyGranted("ROLE_DEPARTMENT")) {
+			return ProjectApplication.where { department.id == userService.currentDepartment.id }
+		} else {
+			return Collections.emptyList() // have no right
+		}
+	}
+	
+	/**
+	 * 根据当前用户情况，查询某项竞赛项目申请。
+	 * <ul>
+	 *   <li>系统管理员：可以查看所有竞赛项目申请</li>
+	 *   <li>项目管理员：可以查看本人负责的竞赛项目申请</li>
+	 *   <li>系院管理员：可以查看本单位的竞赛项目申请</li>
+	 *   <li>其他用户：不能查看任何竞赛项目申请</li>
+	 * </ul>
+	 * @param id 竞赛项目申请 ID
+	 * @return 该竞赛项目申请，如果当前用户可见；否则，<code>null</code>
+	 */
+	ProjectApplication getForCurrentUser(Long id) {
+		def projectApp = ProjectApplication.get(id)
+		if(! projectApp) return null
+		if(userService.hasAdminRole()
+				|| userService.hasProjectRole() && userService.isPrincipalOf(projectApp)
+				|| userService.hasDepartmentRole()
+					&& userService.currentDepartment.id==projectApp.department.id) {
+			return projectApp
+		} else {
+			return null // have no right
+		}
 	}
 	
 	/**
