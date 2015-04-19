@@ -14,6 +14,7 @@ import bzu.Department;
 import bzu.Person;
 import bzu.Staff;
 import bzu.Student;
+import bzu.contest.ProjectApplication;
 
 class UserService {
 	
@@ -178,6 +179,15 @@ class UserService {
 	// 学生所在单位
 	private Department itsDepartment(Student student) {
 		student.department
+	}
+	
+	/**
+	 * 判断当前用户是否为指定对象的负责人
+	 * @param projectApp
+	 * @return
+	 */
+	boolean isPrincipalOf(Object target) {
+		target?.principal?.id == currentPerson.id
 	}
 	
 	// 基于可管理的对象执行一系列操作，操作成功返回 true
