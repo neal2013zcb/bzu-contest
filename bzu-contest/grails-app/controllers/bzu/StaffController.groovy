@@ -2,6 +2,7 @@ package bzu
 
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
 
+import grails.converters.JSON;
 import grails.plugins.springsecurity.Secured;
 
 @Secured(['ROLE_ADMIN','ROLE_DEPARTMENT'])
@@ -30,6 +31,15 @@ class StaffController {
 		cache validFor: 5
 		
 		[staffInstanceList: query.list(params), staffInstanceTotal: query.count()]
+	}
+	
+	@Secured(['ROLE_USER'])
+	def query(String q) {
+		if (request.xhr) {
+			def qlike = "%${q}%"
+			def result = Staff.where { name =~ qlike || no =~ qlike }
+			render result.list(max:4)*.toString() as JSON
+		}
 	}
 	
 }

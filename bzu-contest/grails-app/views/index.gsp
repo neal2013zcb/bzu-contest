@@ -34,7 +34,20 @@
 
 </theme:zone>
 <theme:zone name="panel2">
-			   
+
+<jq:jquery>
+$("#teacherSelector").typeahead({
+	source: function(query, process) {
+		var parameter = {q:query};
+		$.post("${createLink(controller:'staff', action:'query')}", parameter, function(data){
+			process(data);
+		});
+	}
+});
+</jq:jquery>
+
+	<input id="teacherSelector" type="text" autocomplete="off" data-provide="typeahead"/>
+	   
 			<div id="controller-list" role="navigation">
 				<h3>Available Controllers:</h3>
 				<ul>
