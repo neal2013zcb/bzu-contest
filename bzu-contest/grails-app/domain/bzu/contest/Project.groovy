@@ -52,6 +52,23 @@ class Project {
 	 * 负责人，进行信息维护。
 	 */
 	Staff principal
+	
+	/**
+	 * 参赛队伍
+	 */
+	List<Team> teams
+	/**
+	 * 竞赛时间表
+	 */
+	List<Schedule> schedules
+	/**
+	 * 竞赛荣誉
+	 */
+	List<Honor> honors
+	
+	static belongsTo = [contest : Contest]
+	
+	static hasMany = [teams : Team, schedules : Schedule, honors : Honor]
 
     static constraints = {
     }
