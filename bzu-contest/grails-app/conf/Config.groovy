@@ -1,3 +1,5 @@
+import fileuploader.UFile;
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -185,28 +187,14 @@ fileuploader {
 	//   name : 命名，允许用闭包定义命名规则
 	//   ref : 引用其他定义
 
-	domain {
-		property {
-			// ... configurations
-		}
-	}
-	
-	book {
+	projectApplication {
 		path = { obj->
-			"${obj.category}/${obj.id}/"
+			"projectApplication/${obj.id}/"
 		}
-		cover {
-			ref = "image"
-			maxSize = 4 << 20
-			name = "cover"
-		}
-		photos {
-			ref = "doc"
-		}
-		reviews {
-			ref = "zip"
-			maxSize = 4 << 20
-		}
+		allowedExtensions = ['doc','docx','xls','xlsx','pdf']
+		application { }
+		program { }
+		budget { }
 	}
 
 }
