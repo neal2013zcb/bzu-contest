@@ -32,6 +32,10 @@ class ProjectApplication {
 	 */
 	String level
 	/**
+	 * 竞赛年度
+	 */
+	int year
+	/**
 	 * 竞赛地点
 	 */
 	String venues
@@ -102,6 +106,7 @@ class ProjectApplication {
 		name nullable:false, blank:false, unique:true, maxSize:100
 		sponsors nullable:false, blank:false, maxSize:120
 		level nullable:false, blank:false, maxSize:1, inList:Constants.Contest.Level.VALUES
+		year nullable:false, min:2010
 		venues nullable:false, blank:false, maxSize:100
 		startDate nullable:false
 		endDate nullable:false
