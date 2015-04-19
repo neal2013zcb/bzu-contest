@@ -4,8 +4,9 @@ import bzu.Constants;
 import bzu.Staff;
 
 /**
- * 赛事：一项赛事可举办多届，参见竞赛需要申请竞赛项目并立项。
+ * 赛事：一项赛事可举办多届，举办或参加竞赛需要申请竞赛项目并立项。
  * 
+ * @see bzu.contest.ProjectApplication
  * @see bzu.contest.Project
  * @author zhbo
  */
@@ -67,12 +68,12 @@ class Contest {
 	Date lastUpdated
 
     static constraints = {
-		name nullable:false, blank:false, unique:true
-		sponsors nullable:false, blank:false
+		name nullable:false, blank:false, unique:true, maxSize:100
+		sponsors nullable:false, blank:false, maxSize:120
 		level nullable:false, blank:false, maxSize:1, inList:Constants.Contest.Level.VALUES
-		intro nullable:false, blank:false
-		website nullable:true, blank:true, url:true
-		logo nullable:true, blank:true, url:true
+		intro nullable:false, blank:false, maxSize:250
+		website nullable:true, blank:true, url:true, maxSize:100
+		logo nullable:true, blank:true, url:true, maxSize:100
 		submitter nullable:false // MUST be current user
 		principal nullable:false // current user as default
 		approved nullable:false
