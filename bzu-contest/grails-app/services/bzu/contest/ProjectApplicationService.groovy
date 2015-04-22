@@ -17,15 +17,19 @@ class ProjectApplicationService {
 	 * @param contest 所属赛事
 	 * @return 竞赛项目申请
 	 */
-    def apply(Contest contest) {
-		// 新建竞赛项目申请
-		def projectApp = new ProjectApplication(contest:contest)
-		// 从所属赛事中复制基本属性
-		projectApp.properties['name','sponsors','level'] = contest.properties
-		// 初始化新申请
-		initNew(projectApp)
-		// 返回创建的对象
-		return projectApp
+    ProjectApplication apply(Contest contest) {
+		if(contest.approved) {
+			// 新建竞赛项目申请
+			def projectApp = new ProjectApplication(contest:contest)
+			// 从所属赛事中复制基本属性
+			projectApp.properties['sponsors','level'] = contest.properties
+			// 初始化新申请
+			initNew(projectApp)
+			// 返回创建的对象
+			return projectApp
+		} else {
+			return null
+		}
     }
 	
 	/**
@@ -34,11 +38,9 @@ class ProjectApplicationService {
 	 * @param params
 	 * @return 竞赛项目申请
 	 */
-	def create(params) {
+	ProjectApplication create(params) {
 		// 新建竞赛项目申请对象
-		def projectApp = new ProjectApplication()
-		// 设置参数
-		projectApp.properties = params
+		def projectApp = new ProjectApplication(params)
 		// 初始化新申请
 		initNew(projectApp)
 		// 返回创建的对象
@@ -54,8 +56,6 @@ class ProjectApplicationService {
 		projectApp.principal = currentPerson
 		// 依托单位为负责人单位
 		projectApp.department = currentPerson.department
-		// 竞赛年度为当前年份
-		projectApp.year = Calendar.instance.get(Calendar.YEAR)
 		// 当前状态为待审批
 		projectApp.status = Constants.ProjectApplication.Status.TBD
 		// 审批情况为空
@@ -163,18 +163,3 @@ class ProjectApplicationService {
 	
 	// 立项
 }
-
-/*
-venues
-startDate
-endDate
-requestAppropriation
-department
-principal
-submitter
-dateCreated
-status
-approved
-approvedBy
-dateApproved
-*/
