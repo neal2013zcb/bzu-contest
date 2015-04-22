@@ -39,7 +39,7 @@ class FileUploaderController {
 				ufile.save()
 				response.setContentType(grailsApplication.config.grails.mime.types[ufile.extension])
 				response.setHeader("Content-disposition",
-						UserAgentUtils.makeAttachmentFilename(ufile.name, request.getHeader("User-Agent")))
+						UserAgentUtils.makeAttachmentFilename("${ufile.name}.${ufile.extension}", request.getHeader("User-Agent")))
 				response.outputStream << file.readBytes()
 				response.flushBuffer()
 			} else {
