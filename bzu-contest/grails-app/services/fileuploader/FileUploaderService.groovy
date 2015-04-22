@@ -92,7 +92,7 @@ class FileUploaderService {
 
 		// check extensions
 		config.allowedExtensions = getConfig(fileuploaderCfg, domainName, propertyName, 'allowedExtensions')
-		def fileExtension = file.originalFilename.substring(file.originalFilename.lastIndexOf('.') + 1).toLowerCase()
+		def fileExtension = FilenameUtils.getExtension(file.originalFilename).toLowerCase()
 		if (!config.allowedExtensions[0].equals("*") && !config.allowedExtensions.contains(fileExtension)) {
 			def msg = messageSource.getMessage("fileupload.upload.unauthorizedExtension", [
 				fileExtension, config.allowedExtensions] as Object[], locale)
@@ -127,7 +127,7 @@ class FileUploaderService {
 		if(!name) {
 			config.name = getConfig(fileuploaderCfg, domainName, propertyName, 'name')
 			name = getConfigValue(config.name, target)
-			if(!name) name = file.originalFilename
+			if(!name) name = FilenameUtils.getBaseName(file.originalFilename)
 		}
 		path = path + name + "." + fileExtension
 
