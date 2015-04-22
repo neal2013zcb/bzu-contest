@@ -192,9 +192,21 @@ fileuploader {
 			"projectApplication/${obj.id}/"
 		}
 		allowedExtensions = ['doc','docx','xls','xlsx','pdf']
-		application { }
-		program { }
-		budget { }
+		application {
+			name = { obj->
+				"${obj.department.no}-${obj.department.shortName}-竞赛申请书-${new Date().format('yyyyMMdd')}"
+			}
+		}
+		program {
+			name = { obj->
+				"${obj.department.no}-${obj.department.shortName}-竞赛方案-${new Date().format('yyyyMMdd')}"
+			}
+		}
+		budget {
+			name = { obj->
+				"${obj.department.no}-${obj.department.shortName}-竞赛预算-${new Date().format('yyyyMMdd')}"
+			}
+		}
 	}
 
 }
