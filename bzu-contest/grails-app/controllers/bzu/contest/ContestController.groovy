@@ -183,6 +183,7 @@ class ContestController {
 			redirect action:'show', id:id
 			return
 		}
-		redirect controller:'projectApplication', action:'create', params:['contest.id':id]
+		def projectApplicationInstance = projectApplicationService.apply(contestInstance)
+		render view:"/projectApplication/create", model:[projectApplicationInstance:projectApplicationInstance]
 	}
 }
