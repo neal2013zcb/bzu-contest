@@ -32,9 +32,9 @@ class ProjectApplication {
 	 */
 	String level
 	/**
-	 * 竞赛年度
+	 * 竞赛形式
 	 */
-	int year
+	String approach
 	/**
 	 * 竞赛地点
 	 */
@@ -49,10 +49,6 @@ class ProjectApplication {
 	Date endDate
 	
 	/**
-	 * 申请经费
-	 */
-	BigDecimal requestAppropriation
-	/**
 	 * 依托单位
 	 */
 	Department department
@@ -60,14 +56,6 @@ class ProjectApplication {
 	 * 负责人，进行信息维护。
 	 */
 	Staff principal
-	/**
-	 * 提交人
-	 */
-	Staff submitter
-	/**
-	 * 提交时间
-	 */
-	Date dateCreated
 	
 	/**
 	 * 申请书
@@ -83,9 +71,18 @@ class ProjectApplication {
 	UFile budget
 	
 	/**
+	 * 提交人
+	 */
+	Staff submitter
+	/**
+	 * 提交时间
+	 */
+	Date dateCreated
+
+	/**
 	 * 申请状态，‘0’：待审批，‘1’：已立项，‘2’：未通过。
 	 */
-	String status
+	String status = Constants.ProjectApplication.Status.TBD
 	/**
 	 * 是否立项
 	 */
@@ -106,11 +103,10 @@ class ProjectApplication {
 		name nullable:false, blank:false, unique:true, maxSize:100
 		sponsors nullable:false, blank:false, maxSize:120
 		level nullable:false, blank:false, maxSize:1, inList:Constants.Contest.Level.VALUES
-		year nullable:false, min:2010
+		approach nullable:false, blank:false, maxSize:100
 		venues nullable:false, blank:false, maxSize:100
 		startDate nullable:false
 		endDate nullable:false
-		requestAppropriation nullable:false
 		department nullable:false
 		principal nullable:false // current user as default
 		submitter nullable:false // MUST be current user
@@ -119,6 +115,9 @@ class ProjectApplication {
 		approved nullable:false
 		approvedBy nullable:true
 		dateApproved nullable:true
+		application nullable:true
+		program nullable:true
+		budget nullable:true
     }
 	
 	String toString() {
